@@ -4,19 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Undangan Pernikahan - Aliza & Alexzander</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+    <!-- Font Elegan Sesuai Video -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
         :root {
-            --primary: #0f4c81; /* Classic Blue */
-            --secondary: #e8f1f8; /* Soft Light Blue */
-            --bg-color: #ffffff; /* Putih */
-            --text-dark: #2c3e50; /* Biru Gelap keabu-abuan untuk teks */
+            --primary: #7da2a9; /* Soft Blue */
+            --primary-dark: #5b8291; /* Darker Soft Blue untuk teks */
+            --bg-color: #fafafa; /* Soft White */
+            --bg-accent: #eef3f5; /* Light Soft Blue untuk aksen kotak */
+            --text-dark: #33424a; 
             --text-light: #ffffff;
             --font-serif: 'Playfair Display', serif;
             --font-sans: 'Poppins', sans-serif;
-            --font-script: 'Dancing Script', cursive; 
+            --font-script: 'Great Vibes', cursive; 
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -24,62 +26,76 @@
         body {
             font-family: var(--font-sans); 
             background-color: var(--bg-color);
-            /* Motif Batik/Daun Transparan */
-            background-image: url('https://www.transparenttextures.com/patterns/floral-motif.png');
+            /* Motif Batik & Daun Lembut */
+            background-image: url('https://www.transparenttextures.com/patterns/arabesque.png');
             background-attachment: fixed;
-            color: var(--text-dark); overflow-x: hidden;
+            color: var(--text-dark); 
+            overflow-x: hidden;
         }
 
-        /* KELAS ANIMASI SCROLL */
-        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease-out; }
+        .reveal { opacity: 0; transform: translateY(50px); transition: all 1s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* COVER PAGE - TEMA BIRU */
+        /* COVER PAGE FULL SCREEN */
         #cover-page {
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-            background: linear-gradient(rgba(15, 76, 129, 0.7), rgba(15, 76, 129, 0.9)), url('https://i.ibb.co.com/WvNB0qv4/nikah1.png') center/cover;
+            background: linear-gradient(rgba(125, 162, 169, 0.4), rgba(51, 66, 74, 0.9)), url('https://i.ibb.co.com/WvNB0qv4/nikah1.png') center/cover;
             color: var(--text-light); display: flex; flex-direction: column;
             justify-content: center; align-items: center; text-align: center; 
             z-index: 9999; transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1);
         }
-                .cover-content h1 { font-family: var(--font-script); font-size: 4.5rem; color: #fff; margin: 5px 0 20px 0; text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5); letter-spacing: 2px; }
-        .guest-box { background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); padding: 15px 30px; border-radius: 12px; margin: 0 auto 25px auto; border: 1px solid rgba(255, 255, 255, 0.5); width: 80%; max-width: 350px; }
-        .guest-box span { display: block; font-size: 0.9rem; margin-bottom: 8px; color: #ddd; }
-        .guest-box strong { font-size: 1.4rem; font-family: var(--font-serif); color: #fff; }
+                .cover-content h1 { font-family: var(--font-script); font-size: 5rem; color: #fff; margin: 10px 0; text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4); }
+        .cover-content p { font-family: var(--font-serif); font-size: 1.2rem; letter-spacing: 2px; }
+        .guest-box { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: 20px 40px; border-radius: 15px; margin: 20px auto; border: 1px solid rgba(255,255,255,0.3); }
+        .guest-box span { display: block; font-size: 0.9rem; margin-bottom: 5px; }
+        .guest-box strong { font-size: 1.5rem; font-family: var(--font-serif); }
 
-        .btn-open { background-color: #fff; color: var(--primary); padding: 12px 40px; border: none; border-radius: 30px; font-size: 1.1rem; font-weight: bold; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.2); animation: pulse 2s infinite; }
+        .btn-open { background-color: var(--primary); color: #fff; padding: 12px 35px; border: none; border-radius: 30px; font-size: 1.1rem; font-family: var(--font-sans); cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.2); animation: pulse 2s infinite; }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
 
         #main-content { display: none; opacity: 0; transition: opacity 1.5s ease; }
-        section { padding: 80px 20px; text-align: center; }
-        .section-title { font-family: var(--font-script); font-size: 3.8rem; color: var(--primary); margin-bottom: 25px; }
-
-        .couple-wrapper { display: flex; flex-direction: column; gap: 40px; align-items: center; }
-        .person img { width: 240px; height: 320px; object-fit: cover; border-radius: 120px 120px 15px 15px; border: 3px solid var(--primary); box-shadow: 0 10px 20px rgba(0,0,0,0.15); margin-bottom: 15px; }
-        .person h3 { font-family: var(--font-serif); font-size: 2.2rem; color: var(--primary); }
-
-        .gallery-vertical { display: flex; flex-direction: column; gap: 20px; max-width: 100%; margin: 0 auto; }
-        .gallery-vertical img { width: 100%; height: auto; border-radius: 15px; border: 2px solid var(--secondary); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-
-        .event-card { background: #fff; padding: 35px 20px; border-radius: 20px; margin: 20px auto; max-width: 400px; border: 1px solid var(--secondary); box-shadow: 0 10px 30px rgba(15, 76, 129, 0.1); }
-        .btn-map { display: inline-block; background: var(--primary); color: #fff; padding: 12px 25px; text-decoration: none; border-radius: 25px; margin-top: 20px; font-weight: bold; font-size: 0.9rem; }
-
-        @media (min-width: 768px) {
-            .couple-wrapper { flex-direction: row; justify-content: center; gap: 80px; }
-            .gallery-vertical { flex-direction: row; flex-wrap: wrap; max-width: 900px; justify-content: center; }
-            .gallery-vertical img { width: calc(50% - 15px); }
-            .events-wrapper { display: flex; justify-content: center; gap: 30px; }
-            .event-card { margin: 0; width: 100%; }
+        section { padding: 80px 20px; text-align: center; position: relative; }
+        
+        .section-title { font-family: var(--font-script); font-size: 4rem; color: var(--primary-dark); margin-bottom: 30px; }
+        
+        /* SHAPE LENGKUNGAN (ARCH) SEPERTI DI VIDEO */
+        .arch-img {
+            width: 260px; height: 360px; object-fit: cover;
+            border-radius: 130px 130px 15px 15px; 
+            border: 5px solid #fff; box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            margin: 0 auto 20px auto; display: block;
         }
 
-        #music-btn { position: fixed; bottom: 25px; right: 25px; background: rgba(15, 76, 129, 0.8); backdrop-filter: blur(8px); color: #fff; border: 2px solid #fff; border-radius: 50%; width: 45px; height: 45px; font-size: 1.1rem; display: flex; justify-content: center; align-items: center; cursor: pointer; z-index: 999; box-shadow: 0 4px 15px rgba(0,0,0,0.2); animation: spin 4s linear infinite; }
+        .couple-wrapper { display: flex; flex-direction: column; gap: 50px; align-items: center; margin-top: 30px; }
+        .person h3 { font-family: var(--font-script); font-size: 3rem; color: var(--primary-dark); margin-bottom: 5px; }
+        .person p { font-size: 0.9rem; color: #666; font-family: var(--font-sans); }
+
+        /* KOTAK ACARA & COUNTDOWN */
+        .countdown { display: flex; justify-content: center; gap: 15px; margin: 30px 0; }
+        .time-box { background: var(--primary); color: #fff; padding: 15px; border-radius: 50%; width: 75px; height: 75px; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 5px 15px rgba(125, 162, 169, 0.4); }
+        .time-box span { font-size: 1.5rem; font-family: var(--font-serif); line-height: 1; }
+        .time-box p { font-size: 0.7rem; margin: 5px 0 0 0; }
+
+        .event-card { background: var(--bg-accent); padding: 40px 20px; border-radius: 150px 150px 15px 15px; margin: 30px auto; max-width: 350px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); position: relative; overflow: hidden; border-bottom: 5px solid var(--primary); }
+        .btn-map { display: inline-block; background: var(--primary-dark); color: #fff; padding: 10px 25px; text-decoration: none; border-radius: 25px; margin-top: 20px; font-size: 0.9rem; }
+
+        .gallery-vertical { display: flex; flex-direction: column; gap: 15px; max-width: 500px; margin: 0 auto; }
+        .gallery-vertical img { width: 100%; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+
+        /* TIMELINE STORY */
+        .story-container { text-align: left; max-width: 500px; margin: 0 auto; border-left: 2px solid var(--primary); padding-left: 25px; position: relative; }
+        .story-item { margin-bottom: 40px; position: relative; }
+        .story-item::before { content: ''; position: absolute; left: -33px; top: 0; width: 14px; height: 14px; background: var(--primary); border: 3px solid #fff; border-radius: 50%; }
+
+        /* MUSIC BTN */
+        #music-btn { position: fixed; bottom: 25px; right: 25px; background: var(--primary-dark); color: #fff; border: none; border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer; z-index: 999; box-shadow: 0 4px 15px rgba(0,0,0,0.3); animation: spin 4s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
-        .paused { animation-play-state: paused !important; opacity: 0.7; }
+        .paused { animation-play-state: paused !important; opacity: 0.8; }
         
-        .countdown { display: flex; justify-content: center; gap: 10px; margin: 30px 0; }
-        .time-box { background: #fff; border: 1px solid var(--primary); color: var(--primary); padding: 15px; border-radius: 10px; width: 75px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .time-box span { display: block; font-size: 1.8rem; font-family: var(--font-serif); }
-        .time-box p { font-size: 0.8rem; margin: 0; color: var(--text-dark); }
+        @media (min-width: 768px) {
+            .couple-wrapper, .events-wrapper { flex-direction: row; justify-content: center; align-items: stretch; gap: 50px; }
+            .event-card { width: 350px; margin: 0; }
+        }
     </style>
 </head>
 <body>
@@ -90,7 +106,7 @@
 
     <div id="cover-page">
         <div class="cover-content">
-            <p style="letter-spacing: 4px; text-transform: uppercase; font-size: 0.8rem; font-weight: 300;">The Wedding Of</p>
+            <p>The Wedding Of</p>
             <h1>Aliza & Renooo</h1>
             <div class="guest-box">
                 <span>Kepada YTH:</span>
@@ -103,33 +119,36 @@
     </div>
 
     <div id="main-content">
-        <section class="reveal" style="background: linear-gradient(rgba(15,76,129,0.7), rgba(15,76,129,0.9)), url('https://i.ibb.co.com/FkTZCXrH/nikah2.png') center/cover; position: relative;">
-            <div style="position: relative; z-index: 1;">
-                <h2 class="section-title" style="color: #fff;">We Are Getting Married</h2>
-                <p style="max-width: 600px; margin: 0 auto; font-style: italic; color: #e8f1f8; line-height: 1.8;">
-                    "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya."
-                </p>
-            </div>
+        <!-- WE ARE GETTING MARRIED -->
+        <section class="reveal" style="padding-top: 100px;">
+            <img src="https://i.ibb.co.com/FkTZCXrH/nikah2.png" alt="Quote Photo" class="arch-img">
+            <h2 class="section-title">We Are Getting Married</h2>
+            <p style="max-width: 600px; margin: 0 auto; font-style: italic; color: #555; line-height: 1.8;">
+                "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya."
+            </p>
         </section>
 
-        <section class="couple reveal">
+        <!-- GROOM & BRIDE -->
+        <section class="couple reveal" style="background-color: var(--bg-accent);">
             <h2 class="section-title">Groom & Bride</h2>
             <div class="couple-wrapper">
                 <div class="person reveal">
-                    <img src="https://i.ibb.co.com/qF4cGSxv/IMG-20260719-195425.jpg" alt="Foto Aliza">
-                    <h3>Aliza Eka Cahya Pangesti</h3>
-                    <p style="color: #555;">Putri dari Bpk. Erwin & Ibu Nama Ibu</p>
+                    <img src="https://i.ibb.co.com/qF4cGSxv/IMG-20260719-195425.jpg" alt="Foto Aliza" class="arch-img">
+                    <h3>Aliza</h3>
+                    <p style="font-weight: 500; color: var(--text-dark); font-size: 1.1rem; margin-bottom: 5px;">Aliza Eka Cahya Pangesti</p>
+                    <p>Putri dari Bpk. Erwin & Ibu Nama Ibu</p>
                 </div>
-                <h1 class="reveal" style="font-family: var(--font-script); color: var(--primary); font-size: 4rem; margin: auto 0;">&</h1>
+                <h1 class="reveal" style="font-family: var(--font-script); color: var(--primary); font-size: 5rem; display: flex; align-items: center;">&</h1>
                 <div class="person reveal">
-                    <img src="https://i.ibb.co.com/kVx8gBmC/IMG-20260719-195359.jpg" alt="Foto Alexzander">
-                    <h3>Alexzander Bareno</h3>
-                    <p style="color: #555;">Putra dari Bpk. Iwan & Ibu Diyah</p>
+                    <img src="https://i.ibb.co.com/kVx8gBmC/IMG-20260719-195359.jpg" alt="Foto Alexzander" class="arch-img">
+                    <h3>Renooo</h3>
+                    <p style="font-weight: 500; color: var(--text-dark); font-size: 1.1rem; margin-bottom: 5px;">Alexzander Bareno</p>
+                    <p>Putra dari Bpk. Iwan & Ibu Diyah</p>
                 </div>
             </div>
         </section>
-
-        <section class="events reveal" style="background: var(--secondary);">
+                <!-- SAVE THE DATE & EVENTS -->
+        <section class="events reveal">
             <h2 class="section-title">Save The Date</h2>
             <div class="countdown reveal">
                 <div class="time-box"><span id="hari">00</span><p>Hari</p></div>
@@ -137,92 +156,98 @@
                 <div class="time-box"><span id="menit">00</span><p>Menit</p></div>
                 <div class="time-box"><span id="detik">00</span><p>Detik</p></div>
             </div>
-                        <div class="events-wrapper">
+
+            <div class="events-wrapper">
                 <div class="event-card reveal">
-                    <i class="fas fa-ring" style="font-size: 2rem; color: var(--primary); margin-bottom: 15px;"></i>
-                    <h3 style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--primary);">Akad Nikah</h3>
-                    <p style="margin: 10px 0; font-size: 1.1rem;"><strong>Minggu, 11 Desember 2026</strong></p>
-                    <p style="color: #555;">08.00 WIB - Selesai</p>
-                    <p style="color: #777; margin-top: 10px;">Lokasi: Rumah Aliza Kediri</p>
+                    <h3 style="font-family: var(--font-script); font-size: 3rem; color: var(--primary-dark);">Akad Nikah</h3>
+                    <p style="margin: 15px 0; font-size: 1.1rem; font-family: var(--font-serif);"><strong>Minggu, 11 Desember 2026</strong></p>
+                    <p style="color: #666; margin-bottom: 10px;">Pukul 08.00 WIB - Selesai</p>
+                    <p style="color: #444; font-weight: 500;">Lokasi: Rumah Aliza Kediri</p>
                     <a href="https://maps.app.goo.gl/a1LnQVDQXkVvDeNu6" target="_blank" class="btn-map"><i class="fas fa-map-marker-alt"></i> Buka Google Map</a>
                 </div>
 
                 <div class="event-card reveal">
-                    <i class="fas fa-glass-cheers" style="font-size: 2rem; color: var(--primary); margin-bottom: 15px;"></i>
-                    <h3 style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--primary);">Resepsi</h3>
-                    <p style="margin: 10px 0; font-size: 1.1rem;"><strong>Jumat, 28 April 2027</strong></p>
-                    <p style="color: #555;">20.00 WIB - Selesai</p>
-                    <p style="color: #777; margin-top: 10px;">Lokasi: Rumah Renooo Blitar</p>
+                    <h3 style="font-family: var(--font-script); font-size: 3rem; color: var(--primary-dark);">Resepsi</h3>
+                    <p style="margin: 15px 0; font-size: 1.1rem; font-family: var(--font-serif);"><strong>Jumat, 28 April 2027</strong></p>
+                    <p style="color: #666; margin-bottom: 10px;">Pukul 20.00 WIB - Selesai</p>
+                    <p style="color: #444; font-weight: 500;">Lokasi: Rumah Renooo Blitar</p>
                     <a href="https://maps.app.goo.gl/zVCoD72MdXX4D45SA?g_st=ac" target="_blank" class="btn-map"><i class="fas fa-map-marker-alt"></i> Buka Google Map</a>
                 </div>
             </div>
         </section>
 
-        <section class="gallery reveal">
+        <!-- GALLERY -->
+        <section class="gallery reveal" style="background-color: var(--bg-accent);">
             <h2 class="section-title">Our Gallery</h2>
             <div class="gallery-vertical">
                 <img class="reveal" src="https://i.ibb.co.com/WvNB0qv4/nikah1.png" alt="Galeri 1">
                 <img class="reveal" src="https://i.ibb.co.com/FkTZCXrH/nikah2.png" alt="Galeri 2">
-                <img class="reveal" src="https://i.ibb.co.com/WvNB0qv4/nikah1.png" alt="Galeri 3">
-                <img class="reveal" src="https://i.ibb.co.com/FkTZCXrH/nikah2.png" alt="Galeri 4">
             </div>
         </section>
 
-        <section class="story reveal" style="background: var(--secondary);">
+        <!-- LOVE STORY -->
+        <section class="story reveal">
             <h2 class="section-title">Love Story</h2>
-            <div style="text-align: left; max-width: 600px; margin: 0 auto; border-left: 2px solid var(--primary); padding-left: 25px;">
-                <div class="reveal" style="margin-bottom: 30px; position: relative;">
-                    <div style="position: absolute; left: -32px; top: 0; width: 14px; height: 14px; background: var(--primary); border-radius: 50%; box-shadow: 0 0 10px rgba(15,76,129,0.3);"></div>
-                    <h4 style="color: var(--primary); font-size: 1.2rem;">Pertama Bertemu (2023)</h4>
-                    <p style="color: #555;">Awal pertemuan kami di sekolah SMKN 2 Kota Blitar, lalu dipertemukan oleh alam dan jadian eyyeeyy...</p>
+            <div class="story-container">
+                <div class="story-item reveal">
+                    <h4 style="color: var(--primary-dark); font-size: 1.3rem; font-family: var(--font-serif);">Awal Bertemu (2023)</h4>
+                    <p style="color: #666; margin-top: 5px; line-height: 1.6;">Awal pertemuan kami di sekolah SMKN 2 Kota Blitar, lalu dipertemukan oleh alam dan jadian eyyeeyy...</p>
                 </div>
-                <div class="reveal" style="margin-bottom: 10px; position: relative;">
-                    <div style="position: absolute; left: -32px; top: 0; width: 14px; height: 14px; background: var(--primary); border-radius: 50%; box-shadow: 0 0 10px rgba(15,76,129,0.3);"></div>
-                    <h4 style="color: var(--primary); font-size: 1.2rem;">Lamaran (2026)</h4>
-                    <p style="color: #555;">Setelah melewati banyak hal bersama, kami memutuskan untuk mengikat janji suci ke jenjang pernikahan.</p>
+                <div class="story-item reveal">
+                    <h4 style="color: var(--primary-dark); font-size: 1.3rem; font-family: var(--font-serif);">Lamaran (2026)</h4>
+                    <p style="color: #666; margin-top: 5px; line-height: 1.6;">Setelah melewati banyak hal bersama, kami memutuskan untuk mengikat janji suci ke jenjang pernikahan.</p>
                 </div>
             </div>
         </section>
-                <section class="gift reveal">
+                <!-- LOVE GIFT -->
+        <section class="gift reveal" style="background-color: var(--bg-accent);">
             <h2 class="section-title">Love Gift</h2>
-            <p style="margin-bottom: 20px; color: #555;">Bagi Anda yang ingin memberikan tanda kasih:</p>
-            
+            <p style="margin-bottom: 30px; color: #555;">Bagi Anda yang ingin memberikan tanda kasih:</p>
             <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
-                <!-- KOTAK BANK BCA -->
-                <div style="background: #fff; padding: 30px; border-radius: 15px; width: 100%; max-width: 320px; border: 1px solid var(--secondary); box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                <div style="background: #fff; padding: 30px; border-radius: 15px; width: 100%; max-width: 320px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
                     <i class="fas fa-wallet" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 15px;"></i>
-                    <h4 style="font-size: 1.5rem; margin-bottom: 10px; color: var(--primary);">Bank BCA</h4>
-                    <p style="font-family: monospace; font-size: 1.3rem; margin-bottom: 5px; font-weight: bold;">030024420264</p>
+                    <h4 style="font-size: 1.5rem; margin-bottom: 10px; font-family: var(--font-serif);">Bank BCA</h4>
+                    <p style="font-family: monospace; font-size: 1.3rem; margin-bottom: 5px; font-weight: bold; color: var(--primary-dark);">030024420264</p>
                     <p style="color: #777; margin-bottom: 15px;">a.n Alexzander Bareno</p>
-                    <button onclick="navigator.clipboard.writeText('030024420264'); alert('Disalin!');" style="background: var(--primary); color: #fff; border: none; padding: 10px 20px; border-radius: 20px; font-weight: bold; cursor: pointer;"><i class="fas fa-copy"></i> Salin Rekening</button>
+                    <button onclick="navigator.clipboard.writeText('030024420264'); alert('Disalin!');" style="background: var(--primary); color: #fff; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer;"><i class="fas fa-copy"></i> Salin Rekening</button>
                 </div>
-
-                <!-- KOTAK QRIS -->
-                <div style="background: #fff; padding: 30px; border-radius: 15px; width: 100%; max-width: 320px; border: 1px solid var(--secondary); box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                <div style="background: #fff; padding: 30px; border-radius: 15px; width: 100%; max-width: 320px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
                     <i class="fas fa-qrcode" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 15px;"></i>
-                    <h4 style="font-size: 1.5rem; margin-bottom: 10px; color: var(--primary);">Scan QRIS</h4>
-                    <!-- GANTI LINK GAMBAR INI DENGAN FOTO BARCODE QRIS ASLIMU -->
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" alt="QRIS" style="width: 100%; max-width: 180px; margin-bottom: 10px; border: 2px solid var(--secondary); border-radius: 10px;">
+                    <h4 style="font-size: 1.5rem; margin-bottom: 10px; font-family: var(--font-serif);">Scan QRIS</h4>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" alt="QRIS" style="width: 100%; max-width: 150px; margin-bottom: 10px; border-radius: 10px;">
                     <p style="color: #777; font-size: 0.9rem;">Mendukung semua Bank & E-Wallet</p>
                 </div>
             </div>
         </section>
 
-        <section class="rsvp reveal" style="background: var(--secondary);">
+        <!-- WISHES & RSVP -->
+        <section class="rsvp reveal">
             <h2 class="section-title">Wishes & RSVP</h2>
-            <form style="max-width: 500px; margin: 0 auto; text-align: left; background: #fff; padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
-                <input type="text" value="Robert Mantan Aliza" readonly style="width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #ccc; background: #f9f9f9; color: #333;">
-                <select style="width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #ccc; background: #fff; color: #333;">
+            <form style="max-width: 500px; margin: 0 auto; text-align: left; background: #fff; padding: 30px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05);">
+                <input type="text" value="Robert Mantan Aliza" readonly style="width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #ddd; background: #f9f9f9;">
+                <select style="width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #ddd; background: #fff;">
                     <option>Hadir</option>
                     <option>Tidak Hadir</option>
                 </select>
-                <textarea rows="4" placeholder="Tulis ucapan dan doa..." style="width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #ccc; background: #fff; color: #333; font-family: inherit;"></textarea>
-                <button type="button" style="width: 100%; background: var(--primary); color: #fff; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1.1rem; transition: 0.3s;">Kirim Ucapan</button>
+                <textarea rows="4" placeholder="Tulis ucapan dan doa..." style="width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #ddd; font-family: inherit;"></textarea>
+                <button type="button" style="width: 100%; background: var(--primary-dark); color: #fff; padding: 12px; border: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem; cursor: pointer;">Kirim Ucapan</button>
             </form>
+            
+            <!-- Contoh Tampilan Komentar Seperti Video -->
+            <div style="max-width: 500px; margin: 30px auto 0 auto; text-align: left; background: #fff; padding: 20px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); max-height: 300px; overflow-y: auto;">
+                <div style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #eee;">
+                    <strong style="color: var(--primary-dark); font-size: 1rem;">Niko & Reno <i class="fas fa-check-circle" style="color: #27ae60; font-size: 0.8rem;"></i></strong>
+                    <p style="font-size: 0.9rem; color: #555; margin-top: 5px;">Selamat menempuh hidup baru! Semoga lancar sampai hari H yaa.</p>
+                </div>
+                <div>
+                    <strong style="color: var(--primary-dark); font-size: 1rem;">Teman SMK <i class="fas fa-times-circle" style="color: #e74c3c; font-size: 0.8rem;"></i></strong>
+                    <p style="font-size: 0.9rem; color: #555; margin-top: 5px;">Maaf belum bisa hadir, doa terbaik untuk kalian berdua.</p>
+                </div>
+            </div>
         </section>
 
-        <footer style="text-align: center; padding: 25px; background: var(--primary); color: #fff;">
-            <p>&copy; 2026 Aliza & Alexzander. Created with <span style="color: #ffb6c1;">❤</span></p>
+        <footer style="text-align: center; padding: 25px; background: var(--text-dark); color: #fff;">
+            <p>&copy; 2026 Aliza & Alexzander. Created with <span style="color: #e74c3c;">❤</span></p>
         </footer>
     </div>
 
@@ -272,3 +297,4 @@
     </script>
 </body>
 </html>
+
