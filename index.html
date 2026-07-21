@@ -17,34 +17,35 @@
         header { 
             background: var(--primary); 
             display: flex; justify-content: center; align-items: center; 
-            height: 110px; /* Tinggi disesuaikan agar logo besar muat */
+            height: 160px; /* Tinggi disesuaikan agar logo besar muat */
             position: relative;
         }
 
-        /* LOGO SUPER RAKSASA: Sesuai Request 140px */
+        /* LOGO SUPER RAKSASA: 140px */
         .header-logo { 
-            height: 110px; 
+            height: 140px; 
             width: auto; object-fit: contain; pointer-events: none;
         }
-
-        /* Navigasi Kategori */
+                /* BAGIAN 2 - KARTU MENU & MODAL CUSTOM UI */
         .category-nav { display: flex; overflow-x: auto; background: var(--white); padding: 12px 15px; border-bottom: 1px solid #ddd; position: sticky; top: 0; z-index: 100; white-space: nowrap; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .category-nav::-webkit-scrollbar { display: none; }
         .cat-btn { background: none; border: none; padding: 6px 16px; margin-right: 10px; border-radius: 20px; font-weight: 600; font-size: 14px; color: #666; cursor: pointer; transition: 0.3s; border: 1px solid transparent; }
         .cat-btn.active { background-color: rgba(15, 113, 66, 0.1); color: var(--primary); border: 1px solid var(--primary); }
-                /* BAGIAN 2 - KARTU MENU & MODAL CUSTOM UI */
+
         .menu-section { padding: 20px; display: none; animation: fadeIn 0.3s ease-in; }
         .menu-section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .section-title { font-size: 18px; color: var(--primary); margin-bottom: 15px; border-left: 4px solid var(--secondary); padding-left: 10px; }
         .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
         
-        .card { background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); cursor: pointer; position: relative; border: 1px solid #eee; }
-        .card img { width: 100%; height: 150px; object-fit: contain; padding: 10px; background: #fbfbfb; pointer-events: none; }
-        .card-body { padding: 12px; pointer-events: none; }
+        /* DESAIN KARTU BARU: Hilangkan kotak putih, foto full, bayangan halus */
+        .card { background: var(--white); border-radius: 16px; overflow: hidden; box-shadow: 0 6px 15px rgba(0,0,0,0.06); cursor: pointer; position: relative; border: none; transition: 0.2s; }
+        .card:active { transform: scale(0.97); }
+        .card img { width: 100%; height: 160px; object-fit: cover; padding: 0; background: transparent; pointer-events: none; }
+        .card-body { padding: 12px 15px; pointer-events: none; }
         .card-title { font-size: 14px; font-weight: 600; margin-bottom: 5px; line-height: 1.2; }
         .card-price { color: var(--primary); font-weight: 700; font-size: 14px; }
-        .badge-price { position: absolute; top: 10px; right: 10px; background: var(--secondary); color: #000; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; pointer-events: none; }
+        .badge-price { position: absolute; top: 12px; right: 12px; background: var(--secondary); color: #000; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; pointer-events: none; box-shadow: 0 2px 5px rgba(0,0,0,0.15); }
 
         .floating-cart { position: fixed; bottom: 20px; left: 20px; right: 20px; background: var(--primary); color: var(--white); padding: 15px 20px; border-radius: 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 5px 15px rgba(15, 113, 66, 0.4); z-index: 100; cursor: pointer; display: none; }
         .floating-cart.visible { display: flex; }
@@ -57,7 +58,7 @@
         .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
         .close-btn { background: #f1f1f1; border: none; font-size: 16px; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; color: #333; display: flex; justify-content: center; align-items: center; }
         
-        /* CUSTOM UI DROPDOWN (Pengganti Bawaan Chrome) */
+        /* CUSTOM UI DROPDOWN */
         .custom-select-trigger { width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 8px; margin-top: 5px; margin-bottom: 15px; font-size: 14px; background: #fafafa; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 500; }
         .custom-select-trigger::after { content: '\f078'; font-family: 'Font Awesome 6 Free'; font-weight: 900; color: #999; }
         .custom-select-trigger.selected { border-color: var(--primary); background: #f0fdf4; color: var(--primary); font-weight: 600; }
@@ -198,7 +199,7 @@
             for (const category in menuData) {
                 let sectionHTML = `<div id="${category}-section" class="menu-section ${category === 'tea' ? 'active' : ''}"><h2 class="section-title">${category.toUpperCase()} SERIES</h2><div class="grid">`;
                 menuData[category].forEach(item => {
-                    let imgSrc = item.img ? item.img : `https://via.placeholder.com/150x150/fbfbfb/0F7142?text=${item.name.replace(/\s/g, '+')}`;
+                    let imgSrc = item.img ? item.img : `https://via.placeholder.com/150x150/f4f7f6/0F7142?text=${item.name.replace(/\s/g, '+')}`;
                     sectionHTML += `
                     <div class="card" onclick="openProductModal('${item.name}', ${item.price})" oncontextmenu="return false;">
                         <div class="badge-price">${item.price / 1000}K</div>
