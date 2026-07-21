@@ -3,268 +3,321 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Wedding of Salsa & Zaka</title>
-    <!-- Font Elegan -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Es Teh Tjandu - Order Web</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    <!-- KODE CSS (TAMPILAN) DIMULAI DI SINI -->
     <style>
-        /* RESET & VARIABEL WARNA (Nuansa Elegan) */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        /* BAGIAN 1 - CSS DASAR & HEADER */
         :root {
-            --bg-color: #f7f4ef;
+            --primary: #0F7142; /* Hijau khas */
+            --secondary: #FFD100; /* Kuning harga */
+            --bg-color: #F8F9FA;
             --text-dark: #333;
-            --gold: #b38b4f;
-            --gold-light: #d4af37;
             --white: #fff;
-            --font-title: 'Great Vibes', cursive;
-            --font-heading: 'Cinzel', serif;
-            --font-text: 'Montserrat', sans-serif;
         }
-        body {
-            font-family: var(--font-text);
-            background-color: var(--bg-color);
-            color: var(--text-dark);
-            overflow-x: hidden;
-        }
-        /* 1. COVER / SAMPUL */
-        .cover-container {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800') center/cover no-repeat;
-            z-index: 9999; display: flex; justify-content: center; align-items: center;
-            text-align: center; color: var(--white);
-            transition: transform 1s ease-in-out, opacity 1s ease-in-out;
-        }
-        .cover-content { padding: 20px; }
-        .subtitle { font-family: var(--font-heading); font-size: 1.2rem; letter-spacing: 3px; margin-bottom: 10px; }
-        .title { font-family: var(--font-title); font-size: 4rem; color: var(--gold-light); margin-bottom: 30px; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
-        .guest-box { margin: 30px 0; padding: 15px; border-top: 1px solid var(--gold); border-bottom: 1px solid var(--gold); }
-        .guest-name-text { font-size: 1.5rem; font-weight: bold; margin-top: 10px; color: var(--gold-light); }
-                /* TOMBOL UTAMA */
-        .btn-primary {
-            background-color: var(--gold); color: var(--white); border: none; padding: 12px 25px;
-            font-family: var(--font-text); font-weight: 600; border-radius: 25px; cursor: pointer;
-            font-size: 1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.2); transition: 0.3s;
-        }
-        .btn-primary:hover { background-color: var(--gold-light); transform: scale(1.05); }
-        .hidden { display: none; }
-        .cover-up { transform: translateY(-100%); opacity: 0; }
-        /* STRUKTUR KONTEN UTAMA */
-        section { padding: 60px 20px; text-align: center; max-width: 600px; margin: 0 auto; }
-        .section-title { font-family: var(--font-heading); font-size: 2rem; color: var(--gold); margin-bottom: 20px; }
-        .doa-text { font-size: 0.9rem; line-height: 1.6; margin-bottom: 30px; }
-        .photo-circle { width: 150px; height: 150px; border-radius: 50%; margin: 0 auto 15px; border: 3px solid var(--gold); background: url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200') center/cover; }
-        .photo-groom { background: url('https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=200') center/cover; }
-        .dan { font-family: var(--font-title); font-size: 3rem; color: var(--gold); margin: 20px 0; }
-        .countdown-box { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; }
-        .time-box { background: var(--gold); color: var(--white); padding: 15px; border-radius: 10px; width: 70px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .time-box span { font-size: 1.5rem; font-weight: bold; }
-        .time-box p { font-size: 0.8rem; margin-top: 5px; }
-        .jadwal-card, .rek-card { background: var(--white); padding: 25px 20px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-top: 3px solid var(--gold); }
-        .jadwal-card h3 { font-family: var(--font-heading); color: var(--gold); margin-bottom: 10px; }
-        .btn-map, .btn-copy { display: inline-block; margin-top: 15px; background: #333; color: #fff; text-decoration: none; padding: 8px 15px; border-radius: 5px; font-size: 0.9rem; border: none; cursor: pointer; }
-        input, select, textarea { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 5px; font-family: var(--font-text); }
-        .ucapan-list { margin-top: 30px; text-align: left; max-height: 300px; overflow-y: auto; }
-        .komen-box { background: var(--white); padding: 15px; border-radius: 10px; margin-bottom: 10px; border-left: 4px solid var(--gold); }
-        .komen-box span { font-size: 0.8rem; color: #27ae60; }
-        footer { text-align: center; padding: 20px; background: #222; color: #aaa; font-size: 0.8rem; }
-        .fade-element { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
-        .fade-element.visible { opacity: 1; transform: translateY(0); }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-dark); padding-bottom: 80px; }
+        
+        /* Header */
+        header { background-color: var(--primary); color: var(--white); padding: 15px 20px; text-align: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        header h1 { font-size: 20px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        header p { font-size: 12px; opacity: 0.9; margin-top: 5px; }
+        
+        /* Kategori Tab */
+        .category-nav { display: flex; overflow-x: auto; background: var(--white); padding: 10px; border-bottom: 1px solid #ddd; position: sticky; top: 60px; z-index: 99; white-space: nowrap; }
+        .category-nav::-webkit-scrollbar { display: none; }
+        .cat-btn { background: none; border: none; padding: 8px 16px; margin-right: 10px; border-radius: 20px; font-weight: 600; color: #666; cursor: pointer; transition: 0.3s; }
+        .cat-btn.active { background-color: var(--primary); color: var(--white); }
+        
+        /* Grid Menu */
+        .menu-section { padding: 20px; display: none; }
+        .menu-section.active { display: block; }
+        .section-title { font-size: 18px; color: var(--primary); margin-bottom: 15px; border-left: 4px solid var(--secondary); padding-left: 10px; }
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+                /* Kartu Produk */
+        .card { background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); cursor: pointer; position: relative; }
+        .card img { width: 100%; height: 150px; object-fit: contain; padding: 10px; background: #eef5f0; }
+        .card-body { padding: 12px; }
+        .card-title { font-size: 14px; font-weight: 600; margin-bottom: 5px; }
+        .card-price { color: var(--primary); font-weight: 700; font-size: 14px; }
+        .badge-price { position: absolute; top: 10px; right: 10px; background: var(--secondary); color: #000; padding: 3px 8px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+
+        /* Floating Cart */
+        .floating-cart { position: fixed; bottom: 20px; left: 20px; right: 20px; background: var(--primary); color: var(--white); padding: 15px 20px; border-radius: 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 5px 15px rgba(15, 113, 66, 0.4); z-index: 100; cursor: pointer; display: none; }
+        .floating-cart.visible { display: flex; }
+        .cart-info { font-weight: 600; }
+
+        /* Modal / Popup */
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); display: none; z-index: 999; justify-content: center; align-items: flex-end; }
+        .modal-overlay.active { display: flex; }
+        .modal-content { background: var(--white); width: 100%; max-width: 500px; border-radius: 20px 20px 0 0; padding: 20px; animation: slideUp 0.3s ease-out; max-height: 85vh; overflow-y: auto; }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        
+        /* Modal Item Detail */
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        .close-btn { background: none; border: none; font-size: 20px; cursor: pointer; color: #666; }
+        .qty-control { display: flex; align-items: center; gap: 15px; margin: 20px 0; }
+        .qty-btn { width: 35px; height: 35px; border-radius: 50%; background: var(--bg-color); border: 1px solid #ddd; font-size: 18px; cursor: pointer; }
+        textarea, input, select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; margin-top: 5px; margin-bottom: 15px; font-size: 14px; }
+        .btn-full { width: 100%; background: var(--primary); color: var(--white); border: none; padding: 15px; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; }
+        
+        /* Cart List */
+        .cart-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding: 10px 0; }
+        .cart-item-info h4 { font-size: 14px; }
+        .cart-item-info p { font-size: 12px; color: #777; }
+        .cart-item-price { font-weight: 600; color: var(--primary); }
     </style>
-    <!-- KODE CSS BERAKHIR DI SINI -->
 </head>
 <body>
+    <!-- Header -->
+    <header>
+        <h1><i class="fa-solid fa-leaf"></i> Es Teh Tjandu</h1>
+        <p>Kediri & Sekitarnya (Cab. Kota & Kab)</p>
+    </header>
 
-    <!-- COVER SAMPUL -->
-    <div id="cover-page" class="cover-container">
-        <div class="cover-content">
-            <p class="subtitle">The Wedding of</p>
-            <h1 class="title">Salsa & Zaka</h1>
-            <div class="guest-box">
-                <p>Kepada YTH Bapak/Ibu/Saudara/i:</p>
-                <h2 id="guest-name" class="guest-name-text">Tamu Undangan</h2>
-            </div>
-            <button id="btn-open" class="btn-primary">
-                <i class="fas fa-envelope-open-text"></i> Buka Undangan
-            </button>
+    <!-- Navigasi Kategori -->
+    <div class="category-nav">
+        <button class="cat-btn active" onclick="showCategory('tea')">Tea Series</button>
+        <button class="cat-btn" onclick="showCategory('blend')">Blend Series</button>
+        <button class="cat-btn" onclick="showCategory('squash')">Squash Series</button>
+        <button class="cat-btn" onclick="showCategory('yakult')">Yakult Series</button>
+    </div>
+
+    <!-- Area Menu (Diisi Otomatis oleh JavaScript) -->
+    <main id="menu-container"></main>
+
+    <!-- Floating Cart Button -->
+    <div class="floating-cart" id="floatingCart" onclick="openCart()">
+        <div class="cart-info">
+            <i class="fa-solid fa-shopping-cart"></i> <span id="cartCount">0</span> Item
+        </div>
+        <div>
+            Total: Rp <span id="cartTotalBtn">0</span> <i class="fa-solid fa-chevron-right" style="margin-left:10px;"></i>
         </div>
     </div>
-    
-    <!-- AUDIO -->
-    <audio id="bgm" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-    </audio>
-        <main id="main-content" class="hidden">
-        <section class="quotes-section fade-element">
-            <p class="subtitle">The Wedding of</p>
-            <h2 class="title-small">Salsa & Zaka</h2>
-            <p class="quote-text">
-                "A great marriage is not when the 'perfect couple' comes together. 
-                It is when an 'imperfect couple' learns to enjoy their differences"<br><br>
-                - Dave Meurer -
-            </p>
-        </section>
 
-        <section class="profile-section fade-element">
-            <h2 class="section-title">We Are<br>Getting Married!</h2>
-            <p class="doa-text">Maha Suci Allah yang telah menciptakan makhluk-Nya berpasang-pasangan. Ya Allah semoga ridho-Mu tercurah mengiringi pernikahan kami:</p>
-            <div class="couple-wrap">
-                <div class="bride fade-element">
-                    <div class="photo-circle"></div>
-                    <h3 class="bride-name">Salsa Della Redityasari</h3>
-                    <p class="parents">Putri Keempat Dari<br>Bpk Sumariadi & Ibu E. Winarti</p>
-                </div>
-                <h1 class="dan">&</h1>
-                <div class="groom fade-element">
-                    <div class="photo-circle photo-groom"></div>
-                    <h3 class="bride-name">Zakaria Faizin</h3>
-                    <p class="parents">Putra Ketiga Dari<br>Bpk Seran & Ibu Warsini</p>
-                </div>
+    <!-- Modal 1: Detail Produk -->
+    <div class="modal-overlay" id="productModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Nama Produk</h3>
+                <button class="close-btn" onclick="closeModal('productModal')"><i class="fa-solid fa-times"></i></button>
             </div>
-        </section>
+            <p style="color: var(--primary); font-weight:bold; font-size:18px;" id="modalPrice">Rp 0</p>
+            <div class="qty-control">
+                <label style="flex:1;">Jumlah Pesanan:</label>
+                <button class="qty-btn" onclick="updateQty(-1)">-</button>
+                <span id="modalQty" style="font-weight:bold; font-size:18px;">1</span>
+                <button class="qty-btn" onclick="updateQty(1)">+</button>
+            </div>
+            <label>Request Khusus (Opsional):</label>
+            <textarea id="modalRequest" rows="2" placeholder="Contoh: Esnya sedikit saja, jangan terlalu manis..."></textarea>
+            <button class="btn-full" onclick="addToCart()">Masukkan ke Keranjang</button>
+        </div>
+    </div>
+        <!-- Modal 2: Keranjang -->
+    <div class="modal-overlay" id="cartModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Keranjang Belanja</h3>
+                <button class="close-btn" onclick="closeModal('cartModal')"><i class="fa-solid fa-times"></i></button>
+            </div>
+            <div id="cartList" style="margin-bottom:20px; max-height:300px; overflow-y:auto;"></div>
+            <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:18px; margin-bottom:15px;">
+                <span>Total:</span>
+                <span style="color:var(--primary);">Rp <span id="cartTotalDisplay">0</span></span>
+            </div>
+            <button class="btn-full" onclick="openCheckout()">Pesan Sekarang</button>
+        </div>
+    </div>
 
-        <section class="event-section fade-element">
-            <h2 class="section-title">Save The Date</h2>
-            <div class="countdown-box">
-                <div class="time-box"><span id="hari">00</span><p>Hari</p></div>
-                <div class="time-box"><span id="jam">00</span><p>Jam</p></div>
-                <div class="time-box"><span id="menit">00</span><p>Menit</p></div>
-                <div class="time-box"><span id="detik">00</span><p>Detik</p></div>
+    <!-- Modal 3: Checkout Form -->
+    <div class="modal-overlay" id="checkoutModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Lengkapi Pesanan</h3>
+                <button class="close-btn" onclick="closeModal('checkoutModal')"><i class="fa-solid fa-times"></i></button>
             </div>
-            <p class="doa-text">Dengan memohon rahmat dan ridho Allah SWT, kami mengundang Bapak/Ibu/Saudara/i, untuk menghadiri acara pernikahan kami:</p>
-            
-            <div class="jadwal-wrap">
-                <div class="jadwal-card fade-element">
-                    <h3>Akad Nikah</h3>
-                    <p class="date">Selasa, 3 Februari 2026</p>
-                    <p class="time">08.00 WIB s.d Selesai</p>
-                    <p class="location"><strong>Kediaman Mempelai Wanita</strong><br>Desa Kademangan RT.14 / RW.02, Kec. Pagelaran, Kab. Malang</p>
-                    <a href="https://maps.app.goo.gl/8WWuKNCitkKPkiwT8" target="_blank" class="btn-map"><i class="fas fa-map-marker-alt"></i> Google Map</a>
-                </div>
-                <div class="jadwal-card fade-element">
-                    <h3>Resepsi</h3>
-                    <p class="date">Selasa, 3 Februari 2026</p>
-                    <p class="time">10.00 WIB s.d Selesai</p>
-                    <p class="location"><strong>Kediaman Mempelai Wanita</strong><br>Desa Kademangan RT.14 / RW.02, Kec. Pagelaran, Kab. Malang</p>
-                    <a href="https://maps.app.goo.gl/8WWuKNCitkKPkiwT8" target="_blank" class="btn-map"><i class="fas fa-map-marker-alt"></i> Google Map</a>
-                </div>
-                <div class="jadwal-card fade-element">
-                    <h3>Ngunduh Mantu</h3>
-                    <p class="date">Rabu, 4 Februari 2026</p>
-                    <p class="time">08.00 WIB s.d Selesai</p>
-                    <p class="location"><strong>Kediaman Mempelai Pria</strong><br>Jl. (Alamat Pria)</p>
-                </div>
-            </div>
-        </section>
-                <section class="gift-section fade-element">
-            <h2 class="section-title">Wedding Gift</h2>
-            <p class="doa-text">Bagi keluarga dan sahabat yang ingin memberikan tanda kasih, dapat melalui:</p>
-            <div class="rek-card">
-                <h3>BCA</h3>
-                <p id="rek-bca" class="rek-number">1234567890</p>
-                <p>a.n Salsa Della</p>
-                <button class="btn-copy" onclick="copyRekening('rek-bca')"><i class="far fa-copy"></i> Salin Rekening</button>
-            </div>
-        </section>
-
-        <section class="rsvp-section fade-element">
-            <h2 class="section-title">RSVP & Ucapan</h2>
-            <form id="rsvp-form">
-                <input type="text" id="nama-tamu" placeholder="Nama Anda" required>
-                <select id="kehadiran">
-                    <option value="Hadir">Hadir</option>
-                    <option value="Tidak Hadir">Tidak Hadir</option>
+            <form id="checkoutForm" onsubmit="event.preventDefault(); processCheckout();">
+                <label>Nama Pemesan:</label>
+                <input type="text" id="custName" required placeholder="Masukkan nama Anda">
+                
+                <label>Nomor Telepon / WA:</label>
+                <input type="number" id="custPhone" required placeholder="08xxxxxxxxxx">
+                
+                <label>Email (Opsional):</label>
+                <input type="email" id="custEmail" placeholder="email@contoh.com">
+                
+                <label>Metode Pembayaran:</label>
+                <select id="paymentMethod" required>
+                    <option value="QRIS">QRIS</option>
+                    <option value="Transfer Bank BCA">Transfer Bank BCA</option>
+                    <option value="Bayar di Kasir (Cash)">Bayar Langsung di Kasir</option>
                 </select>
-                <textarea id="ucapan" placeholder="Berikan ucapan atau doa..." rows="4" required></textarea>
-                <button type="submit" class="btn-primary">Kirim Ucapan</button>
+                
+                <label>Metode Pengambilan:</label>
+                <select id="deliveryMethod" required>
+                    <option value="Ambil Sendiri (Takeaway)">Ambil Sendiri</option>
+                    <option value="Dianter (Delivery)">Dianter</option>
+                </select>
+                
+                <button type="submit" class="btn-full" style="background:#25D366; margin-top:10px;">
+                    <i class="fa-brands fa-whatsapp"></i> Kirim Pesanan via WA
+                </button>
             </form>
-            <div class="ucapan-list" id="ucapan-list">
-                <div class="komen-box">
-                    <strong>Niko & Reno <span>✓ Hadir</span></strong>
-                    <p>Selamat ya Salsa & Zaka! Semoga samawa.</p>
-                </div>
-            </div>
-        </section>
-        <footer><p>Made with ❤ for Salsa & Zaka</p></footer>
-    </main>
+        </div>
+    </div>
 
-    <!-- KODE JAVASCRIPT (SISTEM ANIMASI & URL) DIMULAI DI SINI -->
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const guestName = urlParams.get('to');
-            if (guestName) {
-                document.getElementById('guest-name').innerText = decodeURIComponent(guestName);
+        // DATA MENU DARI GAMBAR
+        const menuData = {
+            tea: [
+                { id: 't1', name: 'Original Tea', price: 5000 }, { id: 't2', name: 'Apple Tea', price: 5000 },
+                { id: 't3', name: 'Grape Tea', price: 5000 }, { id: 't4', name: 'Manggo Tea', price: 5000 },
+                { id: 't5', name: 'Strawberry Tea', price: 5000 }, { id: 't6', name: 'Kiwi Tea', price: 5000 },
+                { id: 't7', name: 'Leci Tea', price: 5000 }, { id: 't8', name: 'Lemon Tea', price: 5000 }, { id: 't9', name: 'Peach Tea', price: 5000 }
+            ],
+            blend: [
+                { id: 'b1', name: 'Silverquen', price: 10000 }, { id: 'b2', name: 'Bublegum', price: 10000 },
+                { id: 'b3', name: 'Taro', price: 10000 }, { id: 'b4', name: 'Red velvet', price: 10000 },
+                { id: 'b5', name: 'Thai Tea', price: 10000 }, { id: 'b6', name: 'Banana', price: 10000 },
+                { id: 'b7', name: 'Cookies & Cream', price: 10000 }, { id: 'b8', name: 'Matcha', price: 10000 },
+                { id: 'b9', name: 'Milo', price: 10000 }, { id: 'b10', name: 'Pink Lava', price: 10000 }, { id: 'b11', name: 'Klepon', price: 10000 }
+            ],
+            squash: [
+                { id: 's1', name: 'Squash Leci', price: 6000 }, { id: 's2', name: 'Squash Melon', price: 6000 },
+                { id: 's3', name: 'Squash Orange', price: 6000 }, { id: 's4', name: 'Squash Strawbery', price: 6000 }, { id: 's5', name: 'Squash Mangga', price: 6000 }
+            ],
+            yakult: [
+                { id: 'y1', name: 'Yakult Strawberry', price: 8000 }, { id: 'y2', name: 'Yakult Orange', price: 8000 },
+                { id: 'y3', name: 'Yakult Leci', price: 8000 }, { id: 'y4', name: 'Yakult Melon', price: 8000 }, { id: 'y5', name: 'Yakult Mangga', price: 8000 }
+            ]
+        };
+                let cart = [];
+        let currentItem = {};
+
+        // Render Menu ke Halaman
+        function renderMenu() {
+            const container = document.getElementById('menu-container');
+            container.innerHTML = '';
+            
+            for (const category in menuData) {
+                let sectionHTML = `<div id="${category}-section" class="menu-section ${category === 'tea' ? 'active' : ''}">
+                                   <h2 class="section-title">${category.toUpperCase()} SERIES</h2><div class="grid">`;
+                
+                menuData[category].forEach(item => {
+                    sectionHTML += `
+                    <div class="card" onclick="openProductModal('${item.name}', ${item.price})">
+                        <div class="badge-price">${item.price / 1000}K</div>
+                        <img src="https://via.placeholder.com/150x150/eef5f0/0F7142?text=FOTO+MENU" alt="${item.name}">
+                        <div class="card-body">
+                            <h3 class="card-title">${item.name}</h3>
+                            <p class="card-price">Rp ${item.price.toLocaleString('id-ID')}</p>
+                        </div>
+                    </div>`;
+                });
+                sectionHTML += `</div></div>`;
+                container.innerHTML += sectionHTML;
             }
-        });
-
-        const btnOpen = document.getElementById('btn-open');
-        const coverPage = document.getElementById('cover-page');
-        const mainContent = document.getElementById('main-content');
-        const bgm = document.getElementById('bgm');
-
-        btnOpen.addEventListener('click', function() {
-            coverPage.classList.add('cover-up');
-            mainContent.classList.remove('hidden');
-            bgm.play();
-            setTimeout(() => { coverPage.style.display = 'none'; }, 1000);
-        });
-                const targetDate = new Date("Feb 3, 2026 08:00:00").getTime();
-        const countdown = setInterval(function() {
-            const now = new Date().getTime();
-            const distance = targetDate - now;
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById("hari").innerText = days < 10 ? '0' + days : days;
-            document.getElementById("jam").innerText = hours < 10 ? '0' + hours : hours;
-            document.getElementById("menit").innerText = minutes < 10 ? '0' + minutes : minutes;
-            document.getElementById("detik").innerText = seconds < 10 ? '0' + seconds : seconds;
-
-            if (distance < 0) {
-                clearInterval(countdown);
-                document.querySelector(".countdown-box").innerHTML = "<h2>Acara Sedang Berlangsung</h2>";
-            }
-        }, 1000);
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) { entry.target.classList.add('visible'); }
-            });
-        }, { threshold: 0.1 });
-
-        const fadeElements = document.querySelectorAll('.fade-element');
-        fadeElements.forEach((el) => observer.observe(el));
-
-        function copyRekening(id) {
-            const textToCopy = document.getElementById(id).innerText;
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                alert("Nomor rekening berhasil disalin: " + textToCopy);
-            });
         }
 
-        document.getElementById('rsvp-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const nama = document.getElementById('nama-tamu').value;
-            const hadir = document.getElementById('kehadiran').value;
-            const ucapan = document.getElementById('ucapan').value;
-            const list = document.getElementById('ucapan-list');
-            const statusColor = hadir === 'Hadir' ? '#27ae60' : '#e74c3c';
+        function showCategory(cat) {
+            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            document.querySelectorAll('.menu-section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById(`${cat}-section`).classList.add('active');
+        }
+
+        function openProductModal(name, price) {
+            currentItem = { name, price, qty: 1 };
+            document.getElementById('modalTitle').innerText = name;
+            document.getElementById('modalPrice').innerText = `Rp ${price.toLocaleString('id-ID')}`;
+            document.getElementById('modalQty').innerText = '1';
+            document.getElementById('modalRequest').value = '';
+            document.getElementById('productModal').classList.add('active');
+        }
+
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+        function updateQty(change) {
+            if (currentItem.qty + change > 0) {
+                currentItem.qty += change;
+                document.getElementById('modalQty').innerText = currentItem.qty;
+            }
+        }
+
+        function addToCart() {
+            currentItem.request = document.getElementById('modalRequest').value;
+            cart.push({...currentItem});
+            closeModal('productModal');
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const cartBtn = document.getElementById('floatingCart');
+            if (cart.length > 0) {
+                cartBtn.classList.add('visible');
+                let total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+                document.getElementById('cartCount').innerText = cart.length;
+                document.getElementById('cartTotalBtn').innerText = total.toLocaleString('id-ID');
+                document.getElementById('cartTotalDisplay').innerText = total.toLocaleString('id-ID');
+            } else {
+                cartBtn.classList.remove('visible');
+            }
+        }
+
+        function openCart() {
+            const cartList = document.getElementById('cartList');
+            cartList.innerHTML = '';
+            cart.forEach((item, index) => {
+                cartList.innerHTML += `
+                <div class="cart-item">
+                    <div class="cart-item-info">
+                        <h4>${item.name} (x${item.qty})</h4>
+                        <p>${item.request ? 'Catatan: ' + item.request : ''}</p>
+                    </div>
+                    <div class="cart-item-price">Rp ${(item.price * item.qty).toLocaleString('id-ID')}</div>
+                    <button onclick="removeItem(${index})" style="background:red; color:white; border:none; padding:5px 10px; border-radius:5px; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
+                </div>`;
+            });
+            document.getElementById('cartModal').classList.add('active');
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+            openCart();
+            if(cart.length === 0) closeModal('cartModal');
+        }
+
+        function openCheckout() { closeModal('cartModal'); document.getElementById('checkoutModal').classList.add('active'); }
+
+        function processCheckout() {
+            const name = document.getElementById('custName').value;
+            const phone = document.getElementById('custPhone').value;
+            const payment = document.getElementById('paymentMethod').value;
+            const delivery = document.getElementById('deliveryMethod').value;
             
-            const newKomen = `
-                <div class="komen-box" style="border-left: 4px solid ${statusColor}">
-                    <strong>${nama} <span style="color:${statusColor}">${hadir === 'Hadir' ? '✓ Hadir' : '✗ Tidak Hadir'}</span></strong>
-                    <p>${ucapan}</p>
-                </div>
-            `;
-            list.insertAdjacentHTML('afterbegin', newKomen);
-            this.reset();
-            alert("Terima kasih, ucapan Anda telah terkirim!");
-        });
+            let orderText = `*HALO ES TEH TJANDU!* 🍃%0A%0ASaya ingin memesan:%0A`;
+            let total = 0;
+            
+            cart.forEach((item, i) => {
+                orderText += `\n${i+1}. *${item.name}* (x${item.qty})%0A   - Harga: Rp ${(item.price * item.qty).toLocaleString('id-ID')}%0A   - Request: ${item.request ? item.request : '-'}`;
+                total += (item.price * item.qty);
+            });
+
+            orderText += `%0A%0A*Total Belanja:* Rp ${total.toLocaleString('id-ID')}%0A`;
+            orderText += `%0A*DETAIL PELANGGAN:*%0A- Nama: ${name}%0A- No WA: ${phone}%0A- Pengambilan: ${delivery}%0A- Pembayaran: ${payment}%0A%0AMohon konfirmasinya ya Min. Terima kasih! 🙏`;
+
+            // GANTI NOMOR DI BAWAH INI DENGAN NOMOR WA TOKO (Gunakan 62 bukan 0)
+            const noWhatsApp = "6281234567890"; 
+            const waUrl = `https://wa.me/${noWhatsApp}?text=${orderText}`;
+            
+            window.open(waUrl, '_blank');
+            cart = []; updateCartUI(); closeModal('checkoutModal');
+        }
+
+        // Inisialisasi awal
+        window.onload = renderMenu;
     </script>
 </body>
 </html>
