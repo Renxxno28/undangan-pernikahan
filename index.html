@@ -11,42 +11,43 @@
         :root { --primary: #0F7142; --secondary: #FFD100; --bg-color: #F8F9FA; --text-dark: #333; --white: #fff; }
         
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent !important; }
-        
         body { background-color: var(--bg-color); color: var(--text-dark); padding-bottom: 80px; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
 
-        /* HEADER PERBAIKAN: Lebih lega dan posisi tertata */
+        /* HEADER PERBAIKAN TOTAL */
         header { 
-            background: var(--primary); padding: 12px 15px; 
-            display: flex; align-items: center; position: relative; height: 75px;
+            background: var(--primary); padding: 15px 20px; 
+            display: flex; align-items: flex-start; /* Menyusun elemen dari atas */
+            position: relative; min-height: 100px; /* Diperbesar agar logo muat */
         }
         
-        /* CABANG KIRI ATAS: Dibuat super minimalis, tanpa background kotak */
-        .branch-wrapper { z-index: 10; display: flex; flex-direction: column; align-items: flex-start; max-width: 35%; }
-        .branch-label { font-size: 9px; color: rgba(255,255,255,0.8); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
-        .branch-selector { display: flex; align-items: center; gap: 4px; }
-        .branch-selector select { 
-            background: transparent; color: var(--white); border: none; font-size: 11px; font-weight: 600; 
-            outline: none; box-shadow: none; appearance: none; -webkit-appearance: none; padding-right: 12px; cursor: pointer;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="10" height="10"><path d="M7 10l5 5 5-5z" fill="%23FFFFFF"/></svg>'); 
-            background-repeat: no-repeat; background-position: right center; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; width: 100%;
+        /* CABANG KIRI (Disusun ke Bawah Sesuai Permintaan) */
+        .branch-wrapper { z-index: 10; display: flex; flex-direction: column; width: 45%; }
+        
+        .branch-label { font-size: 9px; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
+        
+        .branch-select { 
+            background: transparent; color: var(--white); border: none; font-size: 13px; font-weight: 700; 
+            outline: none; box-shadow: none; appearance: none; -webkit-appearance: none; padding-right: 15px; cursor: pointer;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="12" height="12"><path d="M7 10l5 5 5-5z" fill="%23FFFFFF"/></svg>'); 
+            background-repeat: no-repeat; background-position: right center; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; max-width: 100%; margin-bottom: 6px;
         }
-        .branch-selector select:focus, .branch-selector select:active { outline: none; background-color: transparent; }
-        .branch-selector select option { color: #333; background: #fff; font-size: 14px; }
-        .map-btn { color: var(--secondary); font-size: 14px; text-decoration: none; display: flex; align-items: center; }
+        .branch-select option { color: #333; background: #fff; font-size: 14px; }
+        
+        /* Tombol Map Dikecilkan & Taruh Bawah */
+        .map-btn { font-size: 10px; color: #000; background: var(--secondary); text-decoration: none; display: flex; align-items: center; gap: 5px; padding: 4px 8px; border-radius: 12px; width: fit-content; font-weight: 600; }
 
-        /* LOGO TENGAH: Diperbesar dan dipaksa ke tengah */
+        /* LOGO TENGAH: DIPERBESAR SECARA SIGNIFIKAN */
         .header-logo { 
             position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
-            height: 55px; /* UKURAN DIBESARKAN */
+            height: 75px; /* LOGO SEKARANG JAUH LEBIH BESAR */
             width: auto; object-fit: contain; z-index: 1; pointer-events: none;
         }
-
-        /* Kategori Tab (Sticky) */
+                /* BAGIAN 2 - KATEGORI, KARTU MENU & MODAL */
         .category-nav { display: flex; overflow-x: auto; background: var(--white); padding: 12px 15px; border-bottom: 1px solid #ddd; position: sticky; top: 0; z-index: 100; white-space: nowrap; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .category-nav::-webkit-scrollbar { display: none; }
         .cat-btn { background: none; border: none; padding: 6px 16px; margin-right: 10px; border-radius: 20px; font-weight: 600; font-size: 14px; color: #666; cursor: pointer; transition: 0.3s; border: 1px solid transparent; }
         .cat-btn.active { background-color: rgba(15, 113, 66, 0.1); color: var(--primary); border: 1px solid var(--primary); }
-                /* BAGIAN 2 - KARTU MENU & MODAL */
+
         .menu-section { padding: 20px; display: none; animation: fadeIn 0.3s ease-in; }
         .menu-section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -56,7 +57,7 @@
         .card { background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); cursor: pointer; position: relative; border: 1px solid #eee; }
         
         /* KUNCI ANTI BUG FOTO */
-        .card img { width: 100%; height: 150px; object-fit: contain; padding: 15px; background: #fbfbfb; pointer-events: none; }
+        .card img { width: 100%; height: 150px; object-fit: contain; padding: 10px; background: #fbfbfb; pointer-events: none; }
         .card-body { padding: 12px; pointer-events: none; }
         .card-title { font-size: 14px; font-weight: 600; margin-bottom: 5px; line-height: 1.2; }
         .card-price { color: var(--primary); font-weight: 700; font-size: 14px; }
@@ -88,29 +89,29 @@
     </style>
 </head>
 <body oncontextmenu="return false;">
-    <!-- BAGIAN 3 - HEADER TENGAH LOGO & CABANG KIRI ATAS -->
+    <!-- BAGIAN 3 - HEADER TENGAH LOGO & CABANG VERTIKAL KIRI -->
     
     <header>
-        <!-- Kiri: Cabang Super Kecil & Bebas Kotak Gelap -->
+        <!-- Kiri: Susunan Vertikal (Lokasi -> Cabang -> Maps) -->
         <div class="branch-wrapper">
             <span class="branch-label">Lokasi</span>
-            <div class="branch-selector">
-                <select id="branchSelect" onchange="changeBranch()">
-                    <option value="Lirboyo">Lirboyo</option>
-                    <option value="Penanggungan">Penanggungan</option>
-                    <option value="Tepus">Tepus</option>
-                    <option value="Kaliombo">Kaliombo</option>
-                    <option value="Ngletih">Ngletih</option>
-                </select>
-                <a id="branchMap" href="#" target="_blank" class="map-btn" title="Buka di Maps"><i class="fa-solid fa-map-location-dot"></i></a>
-            </div>
+            <select id="branchSelect" class="branch-select" onchange="changeBranch()">
+                <option value="Lirboyo">Lirboyo</option>
+                <option value="Penanggungan">Penanggungan</option>
+                <option value="Tepus">Tepus</option>
+                <option value="Kaliombo">Kaliombo</option>
+                <option value="Ngletih">Ngletih</option>
+            </select>
+            <a id="branchMap" href="#" target="_blank" class="map-btn" title="Buka di Maps">
+                <i class="fa-solid fa-map-location-dot"></i> Maps
+            </a>
         </div>
         
-        <!-- Tengah: Logo Ukuran Besar -->
+        <!-- Tengah: Logo Super Besar -->
         <img src="https://i.ibb.co.com/TMVv0qmQ/estehtjanduindonesia.png" alt="Logo Es Teh Tjandu" class="header-logo">
     </header>
 
-    <!-- Navigasi Kategori (Sticky) -->
+    <!-- Navigasi Kategori -->
     <div class="category-nav">
         <button class="cat-btn active" onclick="showCategory('tea')">Tea Series</button>
         <button class="cat-btn" onclick="showCategory('blend')">Blend Series</button>
@@ -195,7 +196,7 @@
             </form>
         </div>
     </div>
-        <!-- BAGIAN 5 - LOGIKA JAVASCRIPT -->
+        <!-- BAGIAN 5 - LOGIKA JAVASCRIPT & UPDATE FOTO ORIGINAL TEA -->
     <script>
         const branchMaps = {
             Lirboyo: "https://share.google/imlE5BtRm1I93q4fP",
@@ -205,11 +206,21 @@
             Ngletih: "https://share.google/uiujzZGXztegz5UtL"
         };
 
+        // DATA MENU: Menambahkan foto khusus untuk Original Tea
         const menuData = {
-            tea: [ { id:'t1', name:'Original Tea', price:5000 }, { id:'t2', name:'Apple Tea', price:5000 }, { id:'t3', name:'Grape Tea', price:5000 }, { id:'t4', name:'Manggo Tea', price:5000 }, { id:'t5', name:'Strawberry Tea', price:5000 }, { id:'t6', name:'Kiwi Tea', price:5000 }, { id:'t7', name:'Leci Tea', price:5000 }, { id:'t8', name:'Lemon Tea', price:5000 }, { id:'t9', name:'Peach Tea', price:5000 } ],
-            blend: [ { id:'b1', name:'Silverquen', price:10000 }, { id:'b2', name:'Bublegum', price:10000 }, { id:'b3', name:'Taro', price:10000 }, { id:'b4', name:'Red velvet', price:10000 }, { id:'b5', name:'Thai Tea', price:10000 }, { id:'b6', name:'Banana', price:10000 }, { id:'b7', name:'Cookies & Cream', price:10000 }, { id:'b8', name:'Matcha', price:10000 }, { id:'b9', name:'Milo', price:10000 }, { id:'b10', name:'Pink Lava', price:10000 }, { id:'b11', name:'Klepon', price:10000 } ],
-            squash: [ { id:'s1', name:'Squash Leci', price:6000 }, { id:'s2', name:'Squash Melon', price:6000 }, { id:'s3', name:'Squash Orange', price:6000 }, { id:'s4', name:'Squash Strawbery', price:6000 }, { id:'s5', name:'Squash Mangga', price:6000 } ],
-            yakult: [ { id:'y1', name:'Yakult Strawberry', price:8000 }, { id:'y2', name:'Yakult Orange', price:8000 }, { id:'y3', name:'Yakult Leci', price:8000 }, { id:'y4', name:'Yakult Melon', price:8000 }, { id:'y5', name:'Yakult Mangga', price:8000 } ]
+            tea: [ 
+                { id:'t1', name:'Original Tea', price:5000, img:'https://i.ibb.co.com/1JKHKtc2/originaltea.jpg' }, 
+                { id:'t2', name:'Apple Tea', price:5000 }, { id:'t3', name:'Grape Tea', price:5000 }, { id:'t4', name:'Manggo Tea', price:5000 }, { id:'t5', name:'Strawberry Tea', price:5000 }, { id:'t6', name:'Kiwi Tea', price:5000 }, { id:'t7', name:'Leci Tea', price:5000 }, { id:'t8', name:'Lemon Tea', price:5000 }, { id:'t9', name:'Peach Tea', price:5000 } 
+            ],
+            blend: [ 
+                { id:'b1', name:'Silverquen', price:10000 }, { id:'b2', name:'Bublegum', price:10000 }, { id:'b3', name:'Taro', price:10000 }, { id:'b4', name:'Red velvet', price:10000 }, { id:'b5', name:'Thai Tea', price:10000 }, { id:'b6', name:'Banana', price:10000 }, { id:'b7', name:'Cookies & Cream', price:10000 }, { id:'b8', name:'Matcha', price:10000 }, { id:'b9', name:'Milo', price:10000 }, { id:'b10', name:'Pink Lava', price:10000 }, { id:'b11', name:'Klepon', price:10000 } 
+            ],
+            squash: [ 
+                { id:'s1', name:'Squash Leci', price:6000 }, { id:'s2', name:'Squash Melon', price:6000 }, { id:'s3', name:'Squash Orange', price:6000 }, { id:'s4', name:'Squash Strawbery', price:6000 }, { id:'s5', name:'Squash Mangga', price:6000 } 
+            ],
+            yakult: [ 
+                { id:'y1', name:'Yakult Strawberry', price:8000 }, { id:'y2', name:'Yakult Orange', price:8000 }, { id:'y3', name:'Yakult Leci', price:8000 }, { id:'y4', name:'Yakult Melon', price:8000 }, { id:'y5', name:'Yakult Mangga', price:8000 } 
+            ]
         };
 
         let cart = []; let currentItem = {};
@@ -226,10 +237,14 @@
                 let sectionHTML = `<div id="${category}-section" class="menu-section ${category === 'tea' ? 'active' : ''}">
                                    <h2 class="section-title">${category.toUpperCase()} SERIES</h2><div class="grid">`;
                 menuData[category].forEach(item => {
+                    
+                    // Cek apakah produk punya gambar khusus, jika tidak pakai nama menu sbg placeholder
+                    let imgSrc = item.img ? item.img : `https://via.placeholder.com/150x150/fbfbfb/0F7142?text=${item.name.replace(/\s/g, '+')}`;
+
                     sectionHTML += `
                     <div class="card" onclick="openProductModal('${item.name}', ${item.price})" oncontextmenu="return false;">
                         <div class="badge-price">${item.price / 1000}K</div>
-                        <img src="https://via.placeholder.com/150x150/fbfbfb/0F7142?text=FOTO" alt="${item.name}">
+                        <img src="${imgSrc}" alt="${item.name}">
                         <div class="card-body">
                             <h3 class="card-title">${item.name}</h3>
                             <p class="card-price">Rp ${item.price.toLocaleString('id-ID')}</p>
