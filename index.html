@@ -7,42 +7,40 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* BAGIAN 1 - CSS DASAR & ANTI BUG HOLD */
+        /* BAGIAN 1 - CSS DASAR & ANTI BUG HOLD / KLIK PUTIH */
         :root { --primary: #0F7142; --secondary: #FFD100; --bg-color: #F8F9FA; --text-dark: #333; --white: #fff; }
         
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent !important; }
         body { background-color: var(--bg-color); color: var(--text-dark); padding-bottom: 80px; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
 
-        /* HEADER: Tinggi ditambah agar Logo Besar bisa masuk dengan sempurna */
+        /* HEADER PERBAIKAN: Lebih lega untuk Logo Besar */
         header { 
             background: var(--primary); padding: 15px 20px; 
-            display: flex; align-items: center; 
-            position: relative; height: 110px; 
+            display: flex; align-items: flex-start; 
+            position: relative; height: 115px; /* Tinggi ditambah agar logo muat besar */
         }
         
-        /* CABANG KIRI: 100% Teks Tanpa Kotak */
-        .branch-wrapper { z-index: 10; display: flex; flex-direction: column; width: 40%; }
-        .branch-label { font-size: 10px; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
+        /* CABANG KIRI: Super Bersih, Teks Murni, Tanpa Panah */
+        .branch-wrapper { z-index: 10; display: flex; flex-direction: column; width: 45%; gap: 4px; }
         
-        .branch-text-container { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; }
+        .branch-label { font-size: 10px; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.5px; }
         
-        .branch-select { 
-            background: transparent; color: var(--white); border: none; font-size: 15px; font-weight: 700; 
-            outline: none; box-shadow: none; appearance: none; -webkit-appearance: none; padding: 0; cursor: pointer;
+        /* Teks Cabang (Trigger Custom UI) */
+        .branch-trigger { 
+            font-size: 16px; font-weight: 700; color: var(--white); 
+            cursor: pointer; padding: 0; margin: 0; border: none; background: transparent;
+            text-align: left;
         }
-        /* Style untuk menu pop-up bawaan HP agar lebih bagus */
-        .branch-select option { color: #333; background: #fff; font-size: 16px; padding: 10px; }
         
-        /* Tombol Map Lebih Rapih */
-        .map-btn { font-size: 11px; color: #000; background: var(--secondary); text-decoration: none; display: flex; align-items: center; gap: 5px; padding: 4px 12px; border-radius: 20px; width: fit-content; font-weight: 600; box-shadow: 0 2px 4px rgba(0,0,0,0.15); }
+        .map-btn { font-size: 11px; color: #000; background: var(--secondary); text-decoration: none; display: flex; align-items: center; gap: 5px; padding: 5px 10px; border-radius: 12px; width: fit-content; font-weight: 700; margin-top: 2px;}
 
-        /* LOGO TENGAH: UKURAN MAKSIMAL DAN PAS */
+        /* LOGO TENGAH: UKURAN RAKSASA */
         .header-logo { 
             position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
-            height: 90px; /* DIBUAT SANGAT BESAR */
+            height: 90px; /* SANGAT BESAR SESUAI REQUEST */
             width: auto; object-fit: contain; z-index: 1; pointer-events: none;
         }
-                /* BAGIAN 2 - KATEGORI, KARTU MENU & MODAL */
+                /* BAGIAN 2 - KATEGORI, KARTU MENU & MODAL CUSTOM */
         .category-nav { display: flex; overflow-x: auto; background: var(--white); padding: 12px 15px; border-bottom: 1px solid #ddd; position: sticky; top: 0; z-index: 100; white-space: nowrap; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .category-nav::-webkit-scrollbar { display: none; }
         .cat-btn { background: none; border: none; padding: 6px 16px; margin-right: 10px; border-radius: 20px; font-weight: 600; font-size: 14px; color: #666; cursor: pointer; transition: 0.3s; border: 1px solid transparent; }
@@ -55,8 +53,6 @@
         .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
         
         .card { background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); cursor: pointer; position: relative; border: 1px solid #eee; }
-        
-        /* KUNCI ANTI BUG FOTO */
         .card img { width: 100%; height: 150px; object-fit: contain; padding: 10px; background: #fbfbfb; pointer-events: none; }
         .card-body { padding: 12px; pointer-events: none; }
         .card-title { font-size: 14px; font-weight: 600; margin-bottom: 5px; line-height: 1.2; }
@@ -66,11 +62,19 @@
         .floating-cart { position: fixed; bottom: 20px; left: 20px; right: 20px; background: var(--primary); color: var(--white); padding: 15px 20px; border-radius: 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 5px 15px rgba(15, 113, 66, 0.4); z-index: 100; cursor: pointer; display: none; }
         .floating-cart.visible { display: flex; }
 
-        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: none; z-index: 999; justify-content: center; align-items: flex-end; backdrop-filter: blur(2px); }
+        /* MODAL KHUSUS (POP-UP) */
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); display: none; z-index: 999; justify-content: center; align-items: flex-end; backdrop-filter: blur(2px); }
         .modal-overlay.active { display: flex; }
         .modal-content { background: var(--white); width: 100%; max-width: 500px; border-radius: 20px 20px 0 0; padding: 25px; animation: slideUp 0.3s ease-out; max-height: 85vh; overflow-y: auto; }
         @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
         
+        /* LIST CABANG CUSTOM */
+        .branch-list-item { padding: 15px 10px; border-bottom: 1px solid #eee; font-size: 15px; font-weight: 600; color: #333; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+        .branch-list-item:active { background-color: #f5f5f5; border-radius: 8px; }
+        .branch-list-item i { color: var(--primary); opacity: 0; }
+        .branch-list-item.selected { color: var(--primary); }
+        .branch-list-item.selected i { opacity: 1; }
+
         .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
         .close-btn { background: #f1f1f1; border: none; font-size: 16px; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; color: #333; display: flex; justify-content: center; align-items: center; }
         .qty-control { display: flex; align-items: center; gap: 15px; margin: 20px 0; background: #f9f9f9; padding: 10px; border-radius: 10px; }
@@ -89,31 +93,21 @@
     </style>
 </head>
 <body oncontextmenu="return false;">
-    <!-- BAGIAN 3 - HEADER TENGAH LOGO MAKSIMAL & CABANG TEKS MURNI -->
+    <!-- BAGIAN 3 - HEADER TENGAH LOGO & CABANG CUSTOM -->
     
     <header>
-        <!-- Kiri: Susunan Vertikal 100% Clean -->
+        <!-- Kiri: Custom UI (Tidak ada kotak, murni teks bisa diklik) -->
         <div class="branch-wrapper">
             <span class="branch-label">Lokasi</span>
-            
-            <div class="branch-text-container">
-                <select id="branchSelect" class="branch-select" onchange="changeBranch()">
-                    <option value="Lirboyo">Lirboyo</option>
-                    <option value="Penanggungan">Penanggungan</option>
-                    <option value="Tepus">Tepus</option>
-                    <option value="Kaliombo">Kaliombo</option>
-                    <option value="Ngletih">Ngletih</option>
-                </select>
-                <!-- Ikon Kecil Indikator Dropdown Teks -->
-                <i class="fa-solid fa-chevron-down" style="font-size: 10px; color: var(--white); pointer-events: none;"></i>
+            <div class="branch-trigger" onclick="openBranchModal()" id="currentBranchName">
+                Lirboyo
             </div>
-
-            <a id="branchMap" href="#" target="_blank" class="map-btn" title="Buka di Maps">
+            <a id="branchMap" href="https://share.google/imlE5BtRm1I93q4fP" target="_blank" class="map-btn" title="Buka di Maps">
                 <i class="fa-solid fa-map-location-dot"></i> Maps
             </a>
         </div>
         
-        <!-- Tengah: Logo Super Besar -->
+        <!-- Tengah: Logo Super Raksasa -->
         <img src="https://i.ibb.co.com/TMVv0qmQ/estehtjanduindonesia.png" alt="Logo Es Teh Tjandu" class="header-logo">
     </header>
 
@@ -137,7 +131,34 @@
             Total: Rp <span id="cartTotalBtn">0</span> <i class="fa-solid fa-chevron-right" style="margin-left:8px;"></i>
         </div>
     </div>
-        <!-- BAGIAN 4 - MODAL (POP-UP) -->
+        <!-- BAGIAN 4 - SEMUA MODAL (POP-UP) -->
+
+    <!-- MODAL CUSTOM CABANG (Pengganti Bawaan Chrome) -->
+    <div class="modal-overlay" id="customBranchModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Pilih Cabang</h3>
+                <button class="close-btn" onclick="closeModal('customBranchModal')"><i class="fa-solid fa-times"></i></button>
+            </div>
+            <div id="branchListContainer">
+                <div class="branch-list-item selected" onclick="selectBranch('Lirboyo', 'https://share.google/imlE5BtRm1I93q4fP', this)">
+                    Tjandu Lirboyo <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <div class="branch-list-item" onclick="selectBranch('Penanggungan', 'https://share.google/oBrzVzst8k3OXAml6', this)">
+                    Tjandu Penanggungan <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <div class="branch-list-item" onclick="selectBranch('Tepus', 'https://share.google/mGwuGACSf0Hq75Qf4', this)">
+                    Tjandu Tepus <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <div class="branch-list-item" onclick="selectBranch('Kaliombo', 'https://share.google/vmnL0H9GD654lcPPA', this)">
+                    Tjandu Kaliombo <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <div class="branch-list-item" onclick="selectBranch('Ngletih', 'https://share.google/uiujzZGXztegz5UtL', this)">
+                    Tjandu Ngletih <i class="fa-solid fa-circle-check"></i>
+                </div>
+            </div>
+        </div>
+    </div>
     
     <!-- Modal Detail Produk -->
     <div class="modal-overlay" id="productModal">
@@ -202,17 +223,9 @@
             </form>
         </div>
     </div>
-        <!-- BAGIAN 5 - LOGIKA JAVASCRIPT & UPDATE FOTO ORIGINAL TEA -->
+        <!-- BAGIAN 5 - LOGIKA JAVASCRIPT CUSTOM -->
     <script>
-        const branchMaps = {
-            Lirboyo: "https://share.google/imlE5BtRm1I93q4fP",
-            Penanggungan: "https://share.google/oBrzVzst8k3OXAml6",
-            Tepus: "https://share.google/mGwuGACSf0Hq75Qf4",
-            Kaliombo: "https://share.google/vmnL0H9GD654lcPPA",
-            Ngletih: "https://share.google/uiujzZGXztegz5UtL"
-        };
-
-        // DATA MENU: Menambahkan foto khusus untuk Original Tea
+        // DATA MENU 
         const menuData = {
             tea: [ 
                 { id:'t1', name:'Original Tea', price:5000, img:'https://i.ibb.co.com/1JKHKtc2/originaltea.jpg' }, 
@@ -230,10 +243,24 @@
         };
 
         let cart = []; let currentItem = {};
+        let activeBranch = "Lirboyo"; // Cabang default
 
-        function changeBranch() {
-            const selected = document.getElementById('branchSelect').value;
-            document.getElementById('branchMap').href = branchMaps[selected];
+        // FUNGSI CUSTOM CABANG (Tanpa bawaan Chrome)
+        function openBranchModal() {
+            document.getElementById('customBranchModal').classList.add('active');
+        }
+
+        function selectBranch(branchName, mapLink, element) {
+            activeBranch = branchName;
+            document.getElementById('currentBranchName').innerText = branchName;
+            document.getElementById('branchMap').href = mapLink;
+            
+            // Hapus centang dari yang lain, beri centang ke yang dipilih
+            let items = document.querySelectorAll('.branch-list-item');
+            items.forEach(i => i.classList.remove('selected'));
+            element.classList.add('selected');
+            
+            closeModal('customBranchModal');
         }
 
         function renderMenu() {
@@ -243,10 +270,7 @@
                 let sectionHTML = `<div id="${category}-section" class="menu-section ${category === 'tea' ? 'active' : ''}">
                                    <h2 class="section-title">${category.toUpperCase()} SERIES</h2><div class="grid">`;
                 menuData[category].forEach(item => {
-                    
-                    // Cek apakah produk punya gambar khusus, jika tidak pakai nama menu sbg placeholder
                     let imgSrc = item.img ? item.img : `https://via.placeholder.com/150x150/fbfbfb/0F7142?text=${item.name.replace(/\s/g, '+')}`;
-
                     sectionHTML += `
                     <div class="card" onclick="openProductModal('${item.name}', ${item.price})" oncontextmenu="return false;">
                         <div class="badge-price">${item.price / 1000}K</div>
@@ -319,14 +343,12 @@
         function openCheckout() { closeModal('cartModal'); document.getElementById('checkoutModal').classList.add('active'); }
 
         function processCheckout() {
-            const branchDropdown = document.getElementById('branchSelect');
-            const selectedBranchName = branchDropdown.options[branchDropdown.selectedIndex].text;
             const name = document.getElementById('custName').value;
             const phone = document.getElementById('custPhone').value;
             const payment = document.getElementById('paymentMethod').value;
             const delivery = document.getElementById('deliveryMethod').value;
             
-            let orderText = `*HALO ES TEH TJANDU!* 🍃%0A(Pesanan untuk *Cabang ${selectedBranchName}*)%0A%0ASaya ingin memesan:%0A`;
+            let orderText = `*HALO ES TEH TJANDU!* 🍃%0A(Pesanan untuk *Cabang ${activeBranch}*)%0A%0ASaya ingin memesan:%0A`;
             let total = 0;
             cart.forEach((item, i) => {
                 orderText += `\n${i+1}. *${item.name}* (x${item.qty})%0A   - Harga: Rp ${(item.price * item.qty).toLocaleString('id-ID')}%0A   - Request: ${item.request ? item.request : '-'}`;
@@ -341,7 +363,7 @@
             cart = []; updateCartUI(); closeModal('checkoutModal');
         }
 
-        window.onload = () => { changeBranch(); renderMenu(); };
+        window.onload = renderMenu;
     </script>
 </body>
 </html>
