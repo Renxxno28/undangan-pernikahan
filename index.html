@@ -10,46 +10,36 @@
         /* BAGIAN 1 - CSS DASAR & ANTI BUG HOLD */
         :root { --primary: #0F7142; --secondary: #FFD100; --bg-color: #F8F9FA; --text-dark: #333; --white: #fff; }
         
-        * { 
-            margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; 
-            -webkit-tap-highlight-color: transparent !important; /* HILANGKAN KOTAK PUTIH SAAT DI KLIK */
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent !important; }
         
-        /* Mematikan fungsi klik tahan (long press) bawaan browser */
-        body { 
-            background-color: var(--bg-color); color: var(--text-dark); padding-bottom: 80px;
-            -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; 
-        }
+        body { background-color: var(--bg-color); color: var(--text-dark); padding-bottom: 80px; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
 
-        /* HEADER UTAMA */
+        /* HEADER PERBAIKAN: Lebih lega dan posisi tertata */
         header { 
-            background: var(--primary); padding: 10px 15px; 
-            display: flex; align-items: center; position: relative; height: 65px;
+            background: var(--primary); padding: 12px 15px; 
+            display: flex; align-items: center; position: relative; height: 75px;
         }
         
-        /* LOGO DI TENGAH PAS */
-        .header-logo { 
-            position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
-            height: 45px; /* Ukuran Logo Pas */
-            width: auto; object-fit: contain; z-index: 1; pointer-events: none;
-        }
-
-        /* CABANG KIRI ATAS MINIMALIS */
-        .branch-wrapper { z-index: 2; display: flex; flex-direction: column; }
-        .branch-label { font-size: 9px; color: rgba(255,255,255,0.7); text-transform: uppercase; margin-bottom: 2px; }
-        .branch-selector { display: flex; align-items: center; background: rgba(0,0,0,0.15); padding: 4px 8px; border-radius: 12px; gap: 5px; }
+        /* CABANG KIRI ATAS: Dibuat super minimalis, tanpa background kotak */
+        .branch-wrapper { z-index: 10; display: flex; flex-direction: column; align-items: flex-start; max-width: 35%; }
+        .branch-label { font-size: 9px; color: rgba(255,255,255,0.8); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
+        .branch-selector { display: flex; align-items: center; gap: 4px; }
         .branch-selector select { 
-            background: transparent; color: var(--white); border: none; font-size: 11px; font-weight: 500; 
-            outline: none; box-shadow: none; appearance: none; -webkit-appearance: none; padding-right: 14px; cursor: pointer;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="12" height="12"><path d="M7 10l5 5 5-5z" fill="%23FFFFFF"/></svg>'); 
-            background-repeat: no-repeat; background-position: right center; max-width: 100px;
+            background: transparent; color: var(--white); border: none; font-size: 11px; font-weight: 600; 
+            outline: none; box-shadow: none; appearance: none; -webkit-appearance: none; padding-right: 12px; cursor: pointer;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="10" height="10"><path d="M7 10l5 5 5-5z" fill="%23FFFFFF"/></svg>'); 
+            background-repeat: no-repeat; background-position: right center; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; width: 100%;
         }
-        /* Anti kotak putih saat select diklik di Android */
         .branch-selector select:focus, .branch-selector select:active { outline: none; background-color: transparent; }
         .branch-selector select option { color: #333; background: #fff; font-size: 14px; }
-        
-        /* Tombol Map Kecil di sebelah cabang */
-        .map-btn { color: var(--secondary); font-size: 12px; text-decoration: none; display: flex; align-items: center; padding-left: 5px; border-left: 1px solid rgba(255,255,255,0.2); }
+        .map-btn { color: var(--secondary); font-size: 14px; text-decoration: none; display: flex; align-items: center; }
+
+        /* LOGO TENGAH: Diperbesar dan dipaksa ke tengah */
+        .header-logo { 
+            position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+            height: 55px; /* UKURAN DIBESARKAN */
+            width: auto; object-fit: contain; z-index: 1; pointer-events: none;
+        }
 
         /* Kategori Tab (Sticky) */
         .category-nav { display: flex; overflow-x: auto; background: var(--white); padding: 12px 15px; border-bottom: 1px solid #ddd; position: sticky; top: 0; z-index: 100; white-space: nowrap; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
@@ -65,9 +55,8 @@
         
         .card { background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); cursor: pointer; position: relative; border: 1px solid #eee; }
         
-        /* KUNCI ANTI BUG FOTO: pointer-events none membuat foto sama sekali tidak merespon saat ditekan lama */
+        /* KUNCI ANTI BUG FOTO */
         .card img { width: 100%; height: 150px; object-fit: contain; padding: 15px; background: #fbfbfb; pointer-events: none; }
-        
         .card-body { padding: 12px; pointer-events: none; }
         .card-title { font-size: 14px; font-weight: 600; margin-bottom: 5px; line-height: 1.2; }
         .card-price { color: var(--primary); font-weight: 700; font-size: 14px; }
@@ -98,11 +87,11 @@
         .del-btn { background: #fff0f0; color: #e74c3c; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; transition: 0.2s; }
     </style>
 </head>
-<body oncontextmenu="return false;"> <!-- Blokir klik kanan/hold secara global -->
-    <!-- BAGIAN 3 - HEADER TENGAH & CABANG KIRI ATAS -->
+<body oncontextmenu="return false;">
+    <!-- BAGIAN 3 - HEADER TENGAH LOGO & CABANG KIRI ATAS -->
     
     <header>
-        <!-- Kiri: Pilihan Cabang Sangat Minimalis -->
+        <!-- Kiri: Cabang Super Kecil & Bebas Kotak Gelap -->
         <div class="branch-wrapper">
             <span class="branch-label">Lokasi</span>
             <div class="branch-selector">
@@ -117,11 +106,11 @@
             </div>
         </div>
         
-        <!-- Tengah: Logo Besar & Pas di Tengah -->
+        <!-- Tengah: Logo Ukuran Besar -->
         <img src="https://i.ibb.co.com/TMVv0qmQ/estehtjanduindonesia.png" alt="Logo Es Teh Tjandu" class="header-logo">
     </header>
 
-    <!-- Navigasi Kategori -->
+    <!-- Navigasi Kategori (Sticky) -->
     <div class="category-nav">
         <button class="cat-btn active" onclick="showCategory('tea')">Tea Series</button>
         <button class="cat-btn" onclick="showCategory('blend')">Blend Series</button>
@@ -237,7 +226,6 @@
                 let sectionHTML = `<div id="${category}-section" class="menu-section ${category === 'tea' ? 'active' : ''}">
                                    <h2 class="section-title">${category.toUpperCase()} SERIES</h2><div class="grid">`;
                 menuData[category].forEach(item => {
-                    // Tambahan oncontextmenu='return false;' pada div menu untuk cegah tahan layar
                     sectionHTML += `
                     <div class="card" onclick="openProductModal('${item.name}', ${item.price})" oncontextmenu="return false;">
                         <div class="badge-price">${item.price / 1000}K</div>
