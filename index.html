@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     
     <style>
-        /* === PALET WARNA LOGO === */
+        /* === PALET WARNA MENYESUAIKAN LOGO === */
         :root {
             --bg: #09060f;             
             --surface: #140d1f;        
@@ -30,20 +30,17 @@
         body {
             background-color: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden;
             -webkit-touch-callout: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
-            position: relative; min-height: 100vh; display: flex; flex-direction: column;
-        }
-
-        /* Efek Cahaya Halus di Latar Belakang (Menggantikan cahaya Header) */
-        body::before {
-            content: ''; position: absolute; width: 60vw; height: 60vw; max-width: 800px; max-height: 800px;
-            background: radial-gradient(circle, rgba(155, 44, 163, 0.12) 0%, transparent 60%);
-            top: -150px; left: 50%; transform: translateX(-50%); border-radius: 50%; z-index: 0; pointer-events: none;
         }
 
         a, img { -webkit-user-drag: none; user-drag: none; -webkit-touch-callout: none; }
 
         /* --- ANIMASI --- */
         @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes glowPulse { 
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.15; } 
+            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.25; } 
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 0.15; } 
+        }
 
         /* --- NAVIGASI --- */
         nav {
@@ -59,14 +56,37 @@
             text-decoration: none; text-transform: uppercase;
         }
 
-        /* --- KATEGORI PRODUK UTAMA --- */
-        /* Padding atas diubah menjadi 180px agar tidak tertutup navbar */
-        .categories-section { 
-            padding: 160px 5% 120px; max-width: 900px; margin: 0 auto; 
-            position: relative; z-index: 5; animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            flex-grow: 1; /* Mendorong footer ke bawah jika konten sedikit */
+        /* --- HEADER / HERO SECTION (TERPUSAT, MINIMALIS, ELEGAN) --- */
+        header {
+            min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 0 5%; background: var(--bg); position: relative; overflow: hidden; text-align: center;
+        }
+
+        /* Efek Cahaya Estetik di Tengah Latar Belakang */
+        header::before {
+            content: ''; position: absolute; width: 60vw; height: 60vw; max-width: 800px; max-height: 800px;
+            background: var(--gradient-primary); filter: blur(120px); border-radius: 50%;
+            top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 0;
+            animation: glowPulse 8s infinite ease-in-out;
+        }
+
+        .hero-content {
+            position: relative; z-index: 2; max-width: 800px; animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         
+        .hero-badge {
+            display: inline-block; background: transparent; color: var(--pink-logo);
+            padding: 6px 16px; border-radius: 50px; font-size: 0.85rem; font-weight: 600;
+            margin-bottom: 1.5rem; border: 1px solid rgba(216, 42, 124, 0.3); letter-spacing: 2px; text-transform: uppercase;
+        }
+
+        .hero-content h1 { font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 800; margin-bottom: 1.5rem; line-height: 1.05; letter-spacing: -1px; }
+        .hero-content h1 span { background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .hero-content p { color: var(--text-muted); font-size: 1.15rem; max-width: 600px; margin: 0 auto; line-height: 1.8; }
+
+        /* --- KATEGORI PRODUK UTAMA --- */
+        .categories-section { padding: 100px 5% 120px; max-width: 900px; margin: 0 auto; position: relative; z-index: 5; }
         .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 1rem; font-weight: 800; letter-spacing: -0.5px; }
         .section-desc { text-align: center; color: var(--text-muted); margin-bottom: 4rem; font-size: 1.1rem; }
 
@@ -95,7 +115,7 @@
         .explore-text svg { transition: transform 0.3s ease; }
         .category-card:hover .explore-text svg { transform: translateX(5px); }
 
-        /* --- FOOTER & DISCORD ICON --- */
+        /* --- FOOTER & DISCORD ICON (GAYA MINIMALIS MODERN) --- */
         footer { 
             text-align: center; padding: 4rem 5%; border-top: 1px solid rgba(255,255,255,0.05); 
             background: var(--bg); display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -103,25 +123,37 @@
         
         .copyright { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 30px; }
 
-        .social-container { display: flex; align-items: center; justify-content: center; gap: 18px; }
-        .social-text { font-size: 1.15rem; font-weight: 800; color: var(--text); letter-spacing: 0.5px; }
-        
+        .social-container {
+            display: flex; align-items: center; justify-content: center; gap: 18px;
+        }
+
+        .social-text {
+            font-size: 1.15rem; font-weight: 800; color: var(--text); letter-spacing: 0.5px;
+        }
+
         .discord-link {
             display: inline-flex; justify-content: center; align-items: center;
             color: var(--text); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .discord-link svg { width: 32px; height: 32px; fill: currentColor; }
-        .discord-link:hover { color: var(--pink-logo); transform: scale(1.15) translateY(-2px); }
+
+        .discord-link svg {
+            width: 32px; height: 32px; fill: currentColor;
+        }
+
+        .discord-link:hover {
+            color: var(--pink-logo); transform: scale(1.15) translateY(-2px);
+        }
 
         @media (max-width: 768px) {
-            .categories-section { padding-top: 130px; }
+            .hero-content h1 { font-size: 2.8rem; }
             .category-card { padding: 40px 25px; }
             .category-card h3 { font-size: 1.6rem; }
         }
     </style>
 </head>
 <body oncontextmenu="return false;">
-        <!-- Definisi Gradasi SVG untuk Ikon Produk -->
+
+    <!-- Definisi Gradasi SVG untuk Ikon Produk -->
     <svg style="width:0;height:0;position:absolute;" aria-hidden="true" focusable="false">
       <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
         <stop offset="0%" stop-color="#4B23A5" />
@@ -133,8 +165,16 @@
     <nav>
         <a href="#" class="logo">Renxxno</a>
     </nav>
+        <!-- Sambutan (Hero) Terpusat & Elegan -->
+    <header id="home">
+        <div class="hero-content">
+            <div class="hero-badge">Premium Digital Assets</div>
+            <h1>Selamat Datang di<br><span>Renxxno Store</span></h1>
+            <p>Platform terpercaya untuk kebutuhan digital. Kami menghadirkan koleksi skrip Monetloader kelas atas untuk memaksimalkan performa dan pengalaman bermain SAMP Anda dengan standar profesional.</p>
+        </div>
+    </header>
 
-    <!-- Kategori Produk Utama (Langsung Tampil Tanpa Header) -->
+    <!-- Kategori Produk Utama -->
     <section class="categories-section">
         <h2 class="section-title">Eksplorasi Katalog</h2>
         <p class="section-desc">Pilih kategori produk digital yang saat ini tersedia.</p>
@@ -157,7 +197,7 @@
         </a>
     </section>
 
-    <!-- Footer Interaktif -->
+    <!-- Footer Interaktif (Mengikuti Referensi Desain) -->
     <footer>
         <div class="copyright">
             &copy; 2026 Renxxno Store. Hak Cipta Dilindungi.
