@@ -1,406 +1,364 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" style="scroll-behavior: smooth;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beranda | Renxxno</title>
+    <title>Renxxno | Monetloader Lua Scripts</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Menggunakan font modern 'Outfit' dari Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        html, body { min-height: 100vh; width: 100%; overflow-x: hidden; }
-        
+        /* Variabel Warna Tema */
+        :root {
+            --bg: #0a0a0a;          /* Background Utama */
+            --surface: #141414;     /* Background Kartu */
+            --border: #262626;      /* Warna Garis */
+            --text: #ffffff;        /* Teks Utama */
+            --text-muted: #a3a3a3;  /* Teks Sekunder */
+            --accent: #6366f1;      /* Warna Aksen (Indigo) */
+            --accent-hover: #4f46e5;
+        }
+
+        /* Reset CSS dasar */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
         body {
-            font-family: 'Poppins', sans-serif;
-            background: #ffffff; 
-            display: flex; justify-content: center; align-items: center; 
-            padding: 80px 20px 40px 20px; color: #1d1d1f;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* NAVBAR ATAS */
-        .apple-nav {
-            position: fixed; top: 0; left: 0; right: 0; height: 54px;
-            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 0 20px; z-index: 9999; border-bottom: 1px solid rgba(0,0,0,0.08);
+        /* Navigasi / Header Atas (Efek Kaca / Glassmorphism) */
+        nav {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        /* PERBAIKAN TEKS RENXXNO: ANTI-POPUP & ANTI-BLOK */
-        .nav-brand { 
-            font-size: 20px; font-weight: 600; color: #1d1d1f; text-decoration: none; letter-spacing: -0.5px; 
-            -webkit-touch-callout: none; 
-            -webkit-user-select: none;   
-            user-select: none;           
-            -webkit-tap-highlight-color: transparent; 
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, #ffffff, #6366f1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
         }
-        
-        .nav-icons { display: flex; align-items: center; gap: 25px; color: #1d1d1f; font-size: 18px; }
-        .nav-icons i { cursor: pointer; transition: opacity 0.2s; }
-        .nav-icons i:hover { opacity: 0.5; }
 
-        /* =========================================
-           IKON MENU APPLE (GARIS JADI X MULUS)
-           ========================================= */
-        .apple-burger {
-            width: 18px; height: 12px; display: flex; flex-direction: column; justify-content: space-between; 
-            cursor: pointer; position: relative; z-index: 10000;
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-left: 2.5rem;
+            font-weight: 400;
+            font-size: 0.95rem;
+            transition: color 0.3s;
         }
-        .apple-burger span {
-            display: block; width: 100%; height: 1.5px; background-color: #1d1d1f; border-radius: 2px;
-            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.2s;
-        }
-        .apple-burger.active .line-1 { transform: translateY(5.25px) rotate(45deg); }
-        .apple-burger.active .line-2 { transform: translateY(-5.25px) rotate(-45deg); }
 
-        /* =========================================
-           OVERLAY MENU FULL SCREEN
-           ========================================= */
-        .nav-overlay {
-            position: fixed; top: 54px; left: 0; width: 100%; height: calc(100vh - 54px);
-            background: #ffffff; z-index: 9998; padding: 20px 30px 40px 30px;
-            opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease;
-            overflow-y: auto; 
+        .nav-links a:hover {
+            color: var(--text);
         }
-        .nav-overlay.active { opacity: 1; visibility: visible; }
-                /* LIST MENU ALA APPLE */
-        .menu-list { list-style: none; padding-top: 10px; }
-        .menu-list li {
-            border-bottom: none; 
-            opacity: 0; transform: translateY(20px) scale(0.98);
-            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-        .nav-overlay.active .menu-list li { opacity: 1; transform: translateY(0) scale(1); }
-        
-        .nav-overlay.active .menu-list li:nth-child(1) { transition-delay: 0.05s; }
-        .nav-overlay.active .menu-list li:nth-child(2) { transition-delay: 0.10s; }
-        .nav-overlay.active .menu-list li:nth-child(3) { transition-delay: 0.15s; }
-        .nav-overlay.active .menu-list li:nth-child(4) { transition-delay: 0.20s; }
-        .nav-overlay.active .menu-list li:nth-child(5) { transition-delay: 0.25s; }
-        .nav-overlay.active .menu-list li:nth-child(6) { transition-delay: 0.30s; }
-        .nav-overlay.active .menu-list li:nth-child(7) { transition-delay: 0.35s; }
-        .nav-overlay.active .menu-list li:nth-child(8) { transition-delay: 0.40s; }
-        .nav-overlay.active .menu-list li:nth-child(9) { transition-delay: 0.45s; }
-        .nav-overlay.active .menu-list li:nth-child(10) { transition-delay: 0.50s; }
 
-        .menu-list a { 
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 8px 0; font-size: 32px; font-weight: 700; color: #1d1d1f; text-decoration: none; transition: color 0.3s; 
+        /* Bagian Hero (Sambutan Utama) */
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            /* Efek gradient cahaya di tengah */
+            background: radial-gradient(circle at center, #1a1b35 0%, var(--bg) 60%);
+        }
+
+        .hero-badge {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--accent);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        header h1 {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.1;
             letter-spacing: -1px;
         }
-        .menu-list a:hover, .menu-list a.active { color: #0066cc; }
-        .menu-list a i { font-size: 20px; color: #86868b; }
 
-        .submenu-header {
-            display: flex; align-items: center; font-size: 28px; font-weight: 700; color: #1d1d1f;
-            padding-bottom: 15px; margin-bottom: 15px; cursor: pointer; letter-spacing: -1px;
-        }
-        .submenu-header i { margin-right: 15px; color: #0066cc; font-size: 22px; }
-
-        /* KOTAK PENCARIAN */
-        .search-box { display: flex; align-items: center; background: #f5f5f7; border-radius: 12px; padding: 12px 15px; }
-        .search-box i { color: #86868b; font-size: 20px; margin-right: 12px; transition: color 0.3s; cursor: pointer; }
-        .search-box i:hover { color: #0066cc; }
-        .search-box input { border: none; background: transparent; outline: none; font-size: 20px; width: 100%; color: #1d1d1f; }
-        .search-box input::placeholder { color: #86868b; font-size: 16px; }
-
-        /* TOOLTIP / NOTIFIKASI MENU */
-        .menu-tooltip {
-            position: fixed; top: 65px; right: 15px; background: #ffffff;
-            border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            padding: 12px 16px; display: flex; align-items: center; gap: 12px;
-            z-index: 9997; border: 1px solid rgba(0,0,0,0.05);
-            opacity: 0; transform: translateY(-10px); visibility: hidden;
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-        .menu-tooltip.show { opacity: 1; transform: translateY(0); visibility: visible; }
-        .tooltip-arrow {
-            position: absolute; top: -6px; right: 18px; width: 12px; height: 12px;
-            background: #ffffff; transform: rotate(45deg);
-            border-top: 1px solid rgba(0,0,0,0.05); border-left: 1px solid rgba(0,0,0,0.05);
-        }
-        .menu-tooltip span { font-size: 12px; font-weight: 600; color: #1d1d1f; }
-        .tooltip-icon { color: #0066cc; font-size: 18px; animation: bounceRight 1.5s infinite; }
-        .tooltip-close { color: #86868b; font-size: 14px; cursor: pointer; transition: color 0.2s;}
-        .tooltip-close:hover { color: #fa233b; }
-
-        @keyframes bounceRight { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(3px); } }
-        @keyframes popIn { 0% { opacity: 0; transform: scale(0.95) translateY(30px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
-        @keyframes fadeUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
-                /* =========================================
-           TAMPILAN BERANDA (HERO SECTION) UPDATE BARU
-           ========================================= */
-        .hero-section {
-            display: flex; flex-direction: column; align-items: center; text-align: center;
-            max-width: 800px; width: 100%; padding: 20px; margin-top: 10px;
-        }
-        
-        .hero-image-wrapper {
-            position: relative; margin-bottom: 15px;
-            opacity: 0; animation: popIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+        header h1 span {
+            color: var(--accent);
         }
 
-        /* Foto Tidak Bulat, Transparan, Besar, Anti-Download, Diam Setelah Muncul */
-        .hero-img { 
-            width: 100%; 
-            max-width: 320px; 
-            height: auto; 
-            object-fit: contain; 
-            mix-blend-mode: multiply; 
-            -webkit-touch-callout: none; 
-            -webkit-user-select: none; 
-            user-select: none;
-            pointer-events: none; 
-        }
-
-        .hero-title { 
-            font-size: 42px; font-weight: 800; color: #1d1d1f; letter-spacing: -1px; margin-bottom: 15px; line-height: 1.2;
-            opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.2s forwards; 
-        }
-        .hero-title span { color: #0066cc; }
-
-        .hero-desc { 
-            font-size: 15px; color: #576574; line-height: 1.6; max-width: 550px; margin-bottom: 40px; 
-            opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.3s forwards; 
-        }
-
-        /* TOMBOL CALL TO ACTION (CTA) */
-        .hero-cta { 
-            display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; 
-            opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) 0.4s forwards; 
+        header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin-bottom: 2.5rem;
         }
 
         .btn-primary {
-            background: #0066cc; color: #ffffff; padding: 14px 30px; border-radius: 30px;
-            font-size: 15px; font-weight: 600; text-decoration: none; transition: all 0.3s ease;
-            box-shadow: 0 8px 20px rgba(0, 102, 204, 0.25); display: flex; align-items: center; gap: 8px;
+            display: inline-block;
+            padding: 14px 36px;
+            background-color: var(--accent);
+            color: var(--text);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
         }
-        .btn-primary:hover { background: #005bb5; transform: translateY(-3px); box-shadow: 0 12px 25px rgba(0, 102, 204, 0.35); }
 
-        .btn-secondary {
-            background: #f5f5f7; color: #1d1d1f; padding: 14px 30px; border-radius: 30px;
-            font-size: 15px; font-weight: 600; text-decoration: none; transition: all 0.3s ease;
-            display: flex; align-items: center; gap: 8px; border: 1px solid transparent;
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
         }
-        .btn-secondary:hover { background: #e5e5ea; transform: translateY(-3px); }
 
+        /* Bagian Produk */
+        .products {
+            padding: 100px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .section-desc {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 4rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Desain Kartu Produk */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            border-color: var(--accent);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+        }
+
+        .card-tag {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+            align-self: flex-start;
+        }
+
+        .card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            flex-grow: 1;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border);
+            padding-top: 1.5rem;
+        }
+
+        .price {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--text);
+        }
+
+        .btn-buy {
+            padding: 8px 20px;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .btn-buy:hover {
+            border-color: var(--accent);
+            background: var(--accent);
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 5%;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 4rem;
+            background: var(--surface);
+        }
+
+        /* Responsif untuk HP */
         @media (max-width: 768px) {
-            .hero-title { font-size: 34px; }
-            .hero-img { max-width: 250px; } 
-            .hero-cta { flex-direction: column; width: 100%; max-width: 250px; }
-            .btn-primary, .btn-secondary { justify-content: center; }
-            .menu-list a { font-size: 28px; } 
+            .nav-links {
+                display: none; /* Sembunyikan link di mobile agar minimalis */
+            }
+            header h1 {
+                font-size: 3rem;
+            }
         }
     </style>
 </head>
 <body>
 
-<nav class="apple-nav">
-    <!-- PERBAIKAN HTML RENXXNO: oncontextmenu & draggable -->
-    <a href="index.html" class="nav-brand" draggable="false" oncontextmenu="return false;">Renxxno</a>
-    <div class="nav-icons">
-        <i class="fa-solid fa-magnifying-glass" id="toggleSearch"></i>
-        <div class="apple-burger" id="toggleMenu">
-            <span class="line-1"></span>
-            <span class="line-2"></span>
+    <!-- Navigasi -->
+    <nav>
+        <a href="#" class="logo">RENXXNO</a>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#store">Store</a>
+            <a href="#contact">Contact</a>
         </div>
-    </div>
-</nav>
-<div class="menu-tooltip" id="menuTooltip">
-    <div class="tooltip-arrow"></div>
-    <i class="fa-solid fa-hand-point-up tooltip-icon"></i>
-    <span>Klik di sini untuk menu lainnya!</span>
-    <i class="fa-solid fa-xmark tooltip-close" id="closeTooltip"></i>
-</div>
+    </nav>
 
-<div class="nav-overlay" id="menuOverlay">
-    <div id="mainMenu">
-        <ul class="menu-list">
-            <li><a href="index.html" class="active">Beranda</a></li>
-            <li><a href="biodata.html">Biodata</a></li>
-            <li><a href="#" id="btnGamesMenu">Games <i class="fa-solid fa-chevron-right"></i></a></li>
-            <li><a href="music.html">Music</a></li>
-            <li><a href="store.html">Store</a></li>
-            <li><a href="sosmed.html">Sosial Media</a></li>
-            <li><a href="Memberipesan.html">Kirim Pesan</a></li>
-            <li><a href="rating.html">View & Rating</a></li>
-            <li><a href="donate.html">Donasi</a></li>
-        </ul>
-    </div>
-    <div id="subMenuGames" style="display: none;">
-        <div class="submenu-header" id="btnBackMainMenu">
-            <i class="fa-solid fa-chevron-left"></i>
-            <span>Games</span>
+    <!-- Sambutan (Hero) -->
+    <header id="home">
+        <div class="hero-badge">🚀 Premium Monetloader Scripts</div>
+        <h1>Elevate Your<br><span>SAMP Experience</span></h1>
+        <p>Koleksi script Lua Monetloader terbaik buatan Renxxno. Dioptimalkan untuk performa maksimal, ringan, dan bebas lag.</p>
+        <a href="#store" class="btn-primary">Jelajahi Produk</a>
+    </header>
+
+    <!-- Daftar Produk -->
+    <section class="products" id="store">
+        <h2 class="section-title">Store Kami</h2>
+        <p class="section-desc">Pilih script sesuai kebutuhan server dan gaya bermainmu.</p>
+        
+        <div class="grid">
+            <!-- Produk 1 -->
+            <div class="card">
+                <span class="card-tag">UI & HUD</span>
+                <h3>Modern HUD V2</h3>
+                <p>Tampilan interface modern pengganti HUD bawaan SAMP. Mendukung custom HP bar, armor, radar kotak, dan notifikasi kill yang minimalis.</p>
+                <div class="card-footer">
+                    <span class="price">Rp 35.000</span>
+                    <a href="#" class="btn-buy" onclick="alert('Mengarahkan ke Discord/WhatsApp pembelian...')">Beli</a>
+                </div>
+            </div>
+
+            <!-- Produk 2 -->
+            <div class="card">
+                <span class="card-tag">Performance</span>
+                <h3>Memory Optimizer Lua</h3>
+                <p>Script Monetloader untuk membersihkan memory streaming secara otomatis. Mencegah crash (Warning opcode) saat bermain di server padat.</p>
+                <div class="card-footer">
+                    <span class="price">Rp 50.000</span>
+                    <a href="#" class="btn-buy" onclick="alert('Mengarahkan ke Discord/WhatsApp pembelian...')">Beli</a>
+                </div>
+            </div>
+
+            <!-- Produk 3 -->
+            <div class="card">
+                <span class="card-tag">Utility</span>
+                <h3>Advanced Keybinder</h3>
+                <p>Keybinder in-game berbasis Lua tanpa program eksternal. Bind command RP panjang hanya dengan satu tombol di keyboard/layar sentuh.</p>
+                <div class="card-footer">
+                    <span class="price">Rp 25.000</span>
+                    <a href="#" class="btn-buy" onclick="alert('Mengarahkan ke Discord/WhatsApp pembelian...')">Beli</a>
+                </div>
+            </div>
+
+            <!-- Produk 4 -->
+            <div class="card">
+                <span class="card-tag">Visuals</span>
+                <h3>Custom Nametags ESP</h3>
+                <p>Ubah font nametag player, tambahkan outline, bar darah kustom, dan jarak pandang (render distance) nametag yang dapat diatur via config.</p>
+                <div class="card-footer">
+                    <span class="price">Rp 45.000</span>
+                    <a href="#" class="btn-buy" onclick="alert('Mengarahkan ke Discord/WhatsApp pembelian...')">Beli</a>
+                </div>
+            </div>
+            
+            <!-- Produk 5 -->
+            <div class="card">
+                <span class="card-tag">Mechanic</span>
+                <h3>Smooth Camera Sync</h3>
+                <p>Perbaikan pergerakan kamera saat di kendaraan atau aim senjata agar lebih halus dan sinkron. Wajib dimiliki untuk player RP & Shooter.</p>
+                <div class="card-footer">
+                    <span class="price">Rp 30.000</span>
+                    <a href="#" class="btn-buy" onclick="alert('Mengarahkan ke Discord/WhatsApp pembelian...')">Beli</a>
+                </div>
+            </div>
+            
+            <!-- Produk 6 -->
+            <div class="card">
+                <span class="card-tag">Bundle</span>
+                <h3>Renxxno Full Pack</h3>
+                <p>Semua script buatan Renxxno dalam satu paket. Jauh lebih hemat, gratis update seumur hidup, dan mendapat dukungan prioritas.</p>
+                <div class="card-footer">
+                    <span class="price">Rp 150.000</span>
+                    <a href="#" class="btn-buy" onclick="alert('Mengarahkan ke Discord/WhatsApp pembelian...')">Beli</a>
+                </div>
+            </div>
         </div>
-        <ul class="menu-list">
-            <li><a href="games.html">My Account</a></li>
-            <li><a href="ghosthunter.html">Ghost Hunter</a></li>
-            <li><a href="aeroglide.html">Aero Glide</a></li>
-            <li><a href="puzzle.html">Block Puzzle</a></li>
-        </ul>
-    </div>
-</div>
+    </section>
 
-<div class="nav-overlay" id="searchOverlay">
-    <div class="search-box">
-        <i class="fa-solid fa-magnifying-glass" id="executeSearchBtn" style="cursor: pointer;" title="Klik untuk Mencari"></i>
-        <input type="text" placeholder="Cari (music, game, baju)..." id="searchInput">
-    </div>
-    <p id="searchErrorMsg" style="color: #fa233b; font-size: 13px; font-weight: 600; margin-top: 15px; text-align: center; display: none;">
-        Maaf, pencarian tidak ditemukan. Coba kata kunci lain!
-    </p>
-</div>
-
-<!-- =========================================
-     KONTEN BERANDA (HERO SECTION)
-     ========================================= -->
-<div class="hero-section">
-    
-    <div class="hero-image-wrapper">
-        <img class="hero-img" src="https://i.ibb.co.com/DPgpcYDH/Renxxno1.jpg" alt="Foto Profil Renxxno">
-    </div>
-    
-    <h1 class="hero-title">Halo, Thanks <span>Visit</span>.</h1>
-    
-    <p class="hero-desc">
-        Selamat datang di ruang digital saya. Di sini Anda bisa mengenal saya lebih dekat, melihat proyek karya, bermain mini-games, hingga menjelajahi katalog layanan di store digital saya. Let's connect!
-    </p>
-    
-    <div class="hero-cta">
-        <a href="biodata.html" class="btn-primary">
-            <i class="fa-regular fa-user"></i> Lihat Biodata
-        </a>
-        <a href="store.html" class="btn-secondary">
-            <i class="fa-solid fa-store"></i> Kunjungi Store
-        </a>
-    </div>
-
-</div>
-<!-- ==========================================
-     JAVASCRIPT LENGKAP 
-     ========================================== -->
-<script>
-    // --- 1. LOGIKA MENU & OVERLAY BARU (ANTI-LAG & SCROLL LOCK) ---
-    const btnMenu = document.getElementById('toggleMenu');
-    const btnSearch = document.getElementById('toggleSearch');
-    const menuOverlay = document.getElementById('menuOverlay');
-    const searchOverlay = document.getElementById('searchOverlay');
-    const mainMenu = document.getElementById('mainMenu');
-    const subMenuGames = document.getElementById('subMenuGames');
-    const btnGamesMenu = document.getElementById('btnGamesMenu');
-    const btnBackMainMenu = document.getElementById('btnBackMainMenu');
-    const menuTooltip = document.getElementById('menuTooltip');
-
-    btnMenu.addEventListener('click', () => {
-        if(menuTooltip) menuTooltip.classList.remove('show'); 
-        if (searchOverlay.classList.contains('active')) {
-            searchOverlay.classList.remove('active');
-            btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
-        }
-        
-        menuOverlay.classList.toggle('active');
-        btnMenu.classList.toggle('active');
-
-        if (menuOverlay.classList.contains('active')) {
-            document.body.style.overflow = 'hidden'; 
-            mainMenu.style.display = 'block'; subMenuGames.style.display = 'none';
-        } else {
-            document.body.style.overflow = 'auto'; 
-        }
-    });
-
-    btnSearch.addEventListener('click', () => {
-        if(menuTooltip) menuTooltip.classList.remove('show'); 
-        if (menuOverlay.classList.contains('active')) {
-            menuOverlay.classList.remove('active');
-            btnMenu.classList.remove('active'); 
-            document.body.style.overflow = 'auto';
-        }
-        
-        searchOverlay.classList.toggle('active');
-        
-        if (searchOverlay.classList.contains('active')) {
-            btnSearch.classList.replace('fa-magnifying-glass', 'fa-xmark');
-            document.getElementById('searchInput').focus();
-            document.body.style.overflow = 'hidden'; 
-        } else {
-            btnSearch.classList.replace('fa-xmark', 'fa-magnifying-glass');
-            document.body.style.overflow = 'auto'; 
-        }
-    });
-
-    btnGamesMenu.addEventListener('click', (e) => {
-        e.preventDefault(); 
-        mainMenu.style.display = 'none'; 
-        subMenuGames.style.display = 'block';
-    });
-
-    btnBackMainMenu.addEventListener('click', () => {
-        subMenuGames.style.display = 'none'; 
-        mainMenu.style.display = 'block';
-    });
-
-    // --- 2. LOGIKA NOTIFIKASI PINTAR (HANYA SEKALI MUNCUL) ---
-    document.addEventListener("DOMContentLoaded", function() {
-        const closeTooltip = document.getElementById('closeTooltip');
-        if (!sessionStorage.getItem('menuNotifShown')) {
-            setTimeout(() => { menuTooltip.classList.add('show'); }, 1000);
-            sessionStorage.setItem('menuNotifShown', 'true'); 
-            setTimeout(() => { menuTooltip.classList.remove('show'); }, 8000); 
-        }
-        if (closeTooltip) {
-            closeTooltip.addEventListener('click', () => { menuTooltip.classList.remove('show'); });
-        }
-    });
-
-    // --- 3. LOGIKA MESIN PENCARIAN (SEARCH ENGINE) ---
-    const executeSearchBtn = document.getElementById('executeSearchBtn');
-    const searchInputBox = document.getElementById('searchInput');
-    const searchErrorMsg = document.getElementById('searchErrorMsg');
-
-    const searchDatabase = [
-        { keywords: ["beranda", "home", "renxxno", "awal", "profil"], url: "index.html" },
-        { keywords: ["biodata", "tentang", "about", "info", "lahir", "sekolah", "tkj"], url: "biodata.html" },
-        { keywords: ["game", "games", "my account", "ml", "mobile legends", "ff", "free fire", "pubg"], url: "games.html" },
-        { keywords: ["ghost", "ghost hunter", "hunter", "hantu", "mini game"], url: "ghosthunter.html" },
-        { keywords: ["aero glide", "burung", "aero", "terbang"], url: "aeroglide.html" },
-        { keywords: ["puzzle", "block puzzle", "balok", "tetris", "susun"], url: "puzzle.html" },
-        { keywords: ["music", "musik", "lagu", "tate mcrae", "enau", "slowed", "dengar"], url: "music.html" },
-        { keywords: ["store", "toko", "baju", "jaket", "sweater", "jasa", "website", "jual", "beli", "clandestine"], url: "store.html" },
-        { keywords: ["pesan", "kirim pesan", "kontak", "hubungi", "email", "chat", "message", "whatsapp"], url: "Memberipesan.html" },
-        { keywords: ["rating", "view", "penilaian", "bintang", "ulasan", "nilai"], url: "rating.html" },
-        { keywords: ["donasi", "donate", "qris", "dukung", "uang", "saweria"], url: "donate.html" },
-        { keywords: ["sosial media", "sosmed", "instagram", "ig", "youtube", "yt", "whatsapp", "wa"], url: "sosmed.html" }
-    ];
-
-    function performSearch() {
-        const query = searchInputBox.value.toLowerCase().trim();
-        if (query === "") return; 
-
-        let foundUrl = "";
-        for (let i = 0; i < searchDatabase.length; i++) {
-            const item = searchDatabase[i];
-            const isMatch = item.keywords.some(keyword => query.includes(keyword) || keyword.includes(query));
-            if (isMatch) { foundUrl = item.url; break; }
-        }
-
-        if (foundUrl !== "") {
-            searchErrorMsg.style.display = 'none';
-            executeSearchBtn.className = "fa-solid fa-spinner fa-spin";
-            setTimeout(() => { window.location.href = foundUrl; }, 500);
-        } else {
-            searchErrorMsg.style.display = 'block';
-            setTimeout(() => { searchErrorMsg.style.display = 'none'; }, 3000);
-        }
-    }
-
-    executeSearchBtn.addEventListener('click', performSearch);
-    searchInputBox.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') { e.preventDefault(); performSearch(); }
-    });
-</script>
+    <!-- Footer -->
+    <footer id="contact">
+        <p>&copy; 2026 Renxxno Store. All rights reserved.</p>
+        <p style="margin-top: 10px;">
+            <a href="#" style="color: var(--text-muted); text-decoration: none; margin: 0 10px;">Discord</a> | 
+            <a href="#" style="color: var(--text-muted); text-decoration: none; margin: 0 10px;">GitHub</a> | 
+            <a href="#" style="color: var(--text-muted); text-decoration: none; margin: 0 10px;">YouTube</a>
+        </p>
+    </footer>
 
 </body>
 </html>
